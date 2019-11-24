@@ -25,6 +25,9 @@ public class ScrapeData
             ArrayList<Data> result = new ArrayList<Data>();
 
             Elements linkdata = doc.select("table>tbody>tr>td");
+            for (int i = 1; i < linkdata.size(); i++){
+                Elements linkindata=linkdata.get(i).select("p");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
