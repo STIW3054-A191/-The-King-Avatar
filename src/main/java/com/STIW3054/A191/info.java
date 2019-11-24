@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+/*package com.STIW3054.A191;
 
 public class info
 {
@@ -47,4 +47,4 @@ public class info
         this.line3 = line3;
     }
 
-}
+}*/
