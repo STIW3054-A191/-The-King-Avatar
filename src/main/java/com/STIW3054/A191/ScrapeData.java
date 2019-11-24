@@ -17,8 +17,8 @@ import java.util.Scanner;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
-public class ScrapeData
-{
+public class ScrapeData {
+
     public void findAll() {
         try {
             System.out.println("");
@@ -27,18 +27,23 @@ public class ScrapeData
             String tittle = doc.title();
             System.out.printf("%66s", tittle + "\n");
             System.out.println("----------------------------------------------------------------------------------------");
-            System.out.printf("| %-10s| %-70s|\n", "No", "Link");
+            System.out.printf("| %-10s| %-80s|\n", "No", "Link");
             System.out.println("----------------------------------------------------------------------------------------");
-           
 
             Elements linkdata = doc.select("table>tbody>tr>td");
-            for (int i = 1; i < linkdata.size(); i++){
-                Elements linkindata=linkdata.get(i).select("p");
-                for (int j = 0; j < linkindata.size(); j++){
+            for (int i = 1; i < linkdata.size(); i++) {
+                
+                Elements linkindata = linkdata.get(i).select("p");
+                
+                for (int j = 0; j < linkindata.size(); j++) {
+                    String repoLink = null;
+                    
                     Pattern link = Pattern.compile("https://.*");
                     Matcher matchLink = link.matcher(linkindata.get(j).text());
-                    if(matchLink.find()){
-                        System.out.printf("| %-80s\n",matchLink.group());
+                    
+                    if (matchLink.find()) {
+                        System.out.printf("| %-10s| %-80s\n",i, matchLink.group());
+                        repoLink = matchLink.group();
                     }
 
                     //result.add(new Data(matchLink.group()));
