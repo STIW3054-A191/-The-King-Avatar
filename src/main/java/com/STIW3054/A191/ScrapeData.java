@@ -12,12 +12,20 @@ import java.util.LinkedList;
 
 public class ScrapeData
 {
-    public List<Data> findAll()
-    {
-        LinkedList<info> info = new LinkedList<info>();
-        final String url = "https://github.com/STIW3054-A191/Main-Issues/issues/1";
-        final Document file = Jsoup.connect(url).get();
-        Elements row = file.select("table");
+    public List<Data> findAll() {
+        try {
+            System.out.println("");
+            String URL = "https://github.com/STIW3054-A191/Assignments/issues/1";
+            Document doc = Jsoup.connect(URL).get();
+            String tittle = doc.title();
+            System.out.printf("%66s", tittle + "\n");
+            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.printf("| %-5s\n","Link");
+            System.out.println("----------------------------------------------------------------------------------------");
+            ArrayList<Data> result = new ArrayList<Data>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
