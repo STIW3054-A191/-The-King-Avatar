@@ -23,6 +23,8 @@ public class ScrapeData
             System.out.printf("| %-5s\n","Link");
             System.out.println("----------------------------------------------------------------------------------------");
             ArrayList<Data> result = new ArrayList<Data>();
+
+            Elements linkdata = doc.select("table>tbody>tr>td");
         } catch (IOException e) {
             e.printStackTrace();
         }
