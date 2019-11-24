@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.IOException;
-import java.util.LinkedList;
 
 public class ScrapeData
 {
@@ -37,8 +35,11 @@ public class ScrapeData
                     result.add(new Data(matchLink.group()));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("----------------------------------------------------------------------------------------");
+            return result;
+
+        } catch (Exception e) {
+            return null;
         }
     }
 
