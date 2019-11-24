@@ -30,6 +30,15 @@ public class saveExcel {
                 style.setVerticalAlignment(VerticalAlignment.CENTER);
                 rowHeading.getCell(i).setCellStyle(style);
             }
+
+            int r = 1;
+            for (Data data : scrapeLinkData.findAll()) {
+                //Create row
+                Row row = sheet.createRow(r);
+                Cell cellColumn2 = row.createCell(0);
+                cellColumn2.setCellValue(data.getColumn1());
+                r++;
+            }
         }
 
     }
