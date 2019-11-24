@@ -7,4 +7,10 @@ public class Data {
     public Data(){
         super();
     }
+
+    public Data(String column1) {
+        super();
+
+        this.column1 = column1;
+    }
 }
