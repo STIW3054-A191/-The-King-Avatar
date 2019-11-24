@@ -27,42 +27,43 @@ public class ScrapeData {
             String tittle = doc.title();
             System.out.printf("%66s", tittle + "\n");
             System.out.println("----------------------------------------------------------------------------------------");
-            System.out.printf("| %-10s| %-80s|\n", "No", "Link");
+            System.out.printf("| %-10s| %-90s|\n", "No", "Link");
             System.out.println("----------------------------------------------------------------------------------------");
 
             Elements linkdata = doc.select("table>tbody>tr>td");
             for (int i = 1; i < linkdata.size(); i++) {
-                
+
                 Elements linkindata = linkdata.get(i).select("p");
-                
+
                 for (int j = 0; j < linkindata.size(); j++) {
                     String repoLink = null;
-                    
+
                     Pattern link = Pattern.compile("https://.*");
                     Matcher matchLink = link.matcher(linkindata.get(j).text());
-                    
+
                     if (matchLink.find()) {
-                        System.out.printf("| %-10s| %-80s\n",i, matchLink.group());
+                        System.out.printf("| %-10s| %-90s\n", i, matchLink.group());
                         repoLink = matchLink.group();
                     } else {
                         System.out.print(" ");
                     }
-                    
+
                     String repoUrl = repoLink;
                     String cloneDirectoryPath = ("D://git/");
-                    
-                    try{
-                        File file = new File(cloneDirectoryPath+i);
+
+                    try {
+                        File file = new File(cloneDirectoryPath + i);
                         file.mkdir();
-                        System.out.printf("| %-10s| %-70s|\n"," ","Cloning " + repoUrl + " into folder " + i);
+                        System.out.printf("| %-10s| %-90s|\n", " ", "Cloning " + repoUrl + " into folder " + i);
                         Git.cloneRepository()
                                 .setURI(repoUrl)
                                 .setDirectory(file)
                                 .call();
-                    } catch (GitAPIException e){
-                        
+                        System.out.printf("| %-10s| %-90s|\n", " ", "Completed Cloning");
+                    } catch (GitAPIException e) {
+                        System.out.printf("Exception occurred while cloning");
+                        e.printStackTrace();
                     }
-                    
 
                     //result.add(new Data(matchLink.group()));
                 }
