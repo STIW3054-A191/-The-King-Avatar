@@ -27,9 +27,9 @@ public class ScrapeData
             String tittle = doc.title();
             System.out.printf("%66s", tittle + "\n");
             System.out.println("----------------------------------------------------------------------------------------");
-            System.out.printf("| %-5s\n","Link");
+            System.out.printf("| %-10s| %-70s|\n", "No", "Link");
             System.out.println("----------------------------------------------------------------------------------------");
-            ArrayList<Data> result = new ArrayList<Data>();
+           
 
             Elements linkdata = doc.select("table>tbody>tr>td");
             for (int i = 1; i < linkdata.size(); i++){
@@ -41,14 +41,14 @@ public class ScrapeData
                         System.out.printf("| %-80s\n",matchLink.group());
                     }
 
-                    result.add(new Data(matchLink.group()));
+                    //result.add(new Data(matchLink.group()));
                 }
             }
             System.out.println("----------------------------------------------------------------------------------------");
-            return result;
+            //return result;
 
         } catch (Exception e) {
-            return null;
+            //return null;
         }
     }
 
