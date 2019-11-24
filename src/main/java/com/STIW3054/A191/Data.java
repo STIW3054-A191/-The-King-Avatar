@@ -13,4 +13,10 @@ public class Data {
 
         this.column1 = column1;
     }
+
+    public String getColumn1() {
+        return column1;
+    }
+
+
 }
