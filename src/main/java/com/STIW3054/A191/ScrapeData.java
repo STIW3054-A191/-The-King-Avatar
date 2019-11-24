@@ -48,6 +48,21 @@ public class ScrapeData {
                         System.out.print(" ");
                     }
                     
+                    String repoUrl = repoLink;
+                    String cloneDirectoryPath = ("D://git/");
+                    
+                    try{
+                        File file = new File(cloneDirectoryPath+i);
+                        file.mkdir();
+                        System.out.printf("| %-10s| %-70s|\n"," ","Cloning " + repoUrl + " into folder " + i);
+                        Git.cloneRepository()
+                                .setURI(repoUrl)
+                                .setDirectory(file)
+                                .call();
+                    } catch (GitAPIException e){
+                        
+                    }
+                    
 
                     //result.add(new Data(matchLink.group()));
                 }
