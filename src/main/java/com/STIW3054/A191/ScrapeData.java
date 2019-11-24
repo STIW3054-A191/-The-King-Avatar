@@ -1,18 +1,46 @@
 package com.STIW3054.A191;
 
-import javax.lang.model.util.Elements;
-import javax.swing.text.Document;
-import java.io.IOException;
-import java.util.LinkedList;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ScrapeData
 {
-    public static LinkedList<info> findAll() throws IOException
-    {
-        LinkedList<info> info = new LinkedList<info>();
-        final String url = "https://github.com/STIW3054-A191/Main-Issues/issues/1";
-        //final Document file = Jsoup.connect(url).get();
-        //Elements row = file.select("table");
+    public List<Data> findAll() {
+        try {
+            System.out.println("");
+            String URL = "https://github.com/STIW3054-A191/Assignments/issues/1";
+            Document doc = Jsoup.connect(URL).get();
+            String tittle = doc.title();
+            System.out.printf("%66s", tittle + "\n");
+            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.printf("| %-5s\n","Link");
+            System.out.println("----------------------------------------------------------------------------------------");
+            ArrayList<Data> result = new ArrayList<Data>();
+
+            Elements linkdata = doc.select("table>tbody>tr>td");
+            for (int i = 1; i < linkdata.size(); i++){
+                Elements linkindata=linkdata.get(i).select("p");
+                for (int j = 0; j < linkindata.size(); j++){
+                    Pattern link = Pattern.compile("https://.*");
+                    Matcher matchLink = link.matcher(linkindata.get(j).text());
+                    if(matchLink.find()){
+                        System.out.printf("| %-80s\n",matchLink.group());
+                    }
+
+                    result.add(new Data(matchLink.group()));
+                }
+            }
+            System.out.println("----------------------------------------------------------------------------------------");
+            return result;
+
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
