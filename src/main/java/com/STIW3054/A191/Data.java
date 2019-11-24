@@ -18,5 +18,9 @@ public class Data {
         return column1;
     }
 
+    public void setColumn1(String column1) {
+        this.column1 = column1;
+    }
+
 
 }
