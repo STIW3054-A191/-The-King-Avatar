@@ -4,7 +4,7 @@ public class Main {
     public static void main (String[] args){
         App c_app = new App();
 
-
+        c_app.app();
     }
 
 }
