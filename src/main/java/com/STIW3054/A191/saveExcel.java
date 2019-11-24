@@ -14,6 +14,11 @@ public class saveExcel {
             ScrapeData scrapeLinkData = new ScrapeData();
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet("Link");
+
+            //Create Heading
+            Row rowHeading = sheet.createRow(0);
+            rowHeading.createCell(0).setCellValue("Link                                                               ");
+
         }
 
     }
