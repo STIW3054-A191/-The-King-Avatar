@@ -33,6 +33,8 @@ public class ScrapeData
                     if(matchLink.find()){
                         System.out.printf("| %-80s\n",matchLink.group());
                     }
+
+                    result.add(new Data(matchLink.group()));
                 }
             }
         } catch (IOException e) {
