@@ -44,7 +44,10 @@ public class ScrapeData {
                     if (matchLink.find()) {
                         System.out.printf("| %-10s| %-80s\n",i, matchLink.group());
                         repoLink = matchLink.group();
+                    } else {
+                        System.out.print(" ");
                     }
+                    
 
                     //result.add(new Data(matchLink.group()));
                 }
