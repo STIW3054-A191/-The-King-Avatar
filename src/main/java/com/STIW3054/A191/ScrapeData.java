@@ -27,6 +27,13 @@ public class ScrapeData
             Elements linkdata = doc.select("table>tbody>tr>td");
             for (int i = 1; i < linkdata.size(); i++){
                 Elements linkindata=linkdata.get(i).select("p");
+                for (int j = 0; j < linkindata.size(); j++){
+                    Pattern link = Pattern.compile("https://.*");
+                    Matcher matchLink = link.matcher(linkindata.get(j).text());
+                    if(matchLink.find()){
+                        System.out.printf("| %-80s\n",matchLink.group());
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
