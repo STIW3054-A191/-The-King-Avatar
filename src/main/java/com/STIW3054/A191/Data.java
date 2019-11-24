@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+/*package com.STIW3054.A191;
 import  java.util.*;
 
 public class Data {
@@ -23,4 +23,4 @@ public class Data {
     }
 
 
-}
+}*/
