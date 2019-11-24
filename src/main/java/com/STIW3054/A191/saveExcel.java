@@ -39,6 +39,18 @@ public class saveExcel {
                 cellColumn2.setCellValue(data.getColumn1());
                 r++;
             }
+
+            for (int i = 1; i <= 28; i++)
+                sheet.autoSizeColumn(i);
+
+            //Save to Excel FILE
+            FileOutputStream out = new FileOutputStream(new File("D:\\Testing.xls"));
+            workbook.write(out);
+            out.close();
+            workbook.close();
+
+        }catch (Exception e){
+            System.out.print(e.getStackTrace());
         }
 
     }
