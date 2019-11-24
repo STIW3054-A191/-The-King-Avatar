@@ -14,4 +14,5 @@ public class ScrapeData
         final Document file = Jsoup.connect(url).get();
         Elements row = file.select("table");
     }
+
 }
