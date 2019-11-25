@@ -16,7 +16,7 @@ public class ScrapeData {
 
     public void findAll() {
         try {
-
+            //the url link
             String URL = "https://github.com/STIW3054-A191/Assignments/issues/1";
             Document page = Jsoup.connect(URL).get();
             String title = page.title();
