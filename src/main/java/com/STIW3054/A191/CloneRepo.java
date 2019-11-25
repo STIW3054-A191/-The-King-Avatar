@@ -5,11 +5,12 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import java.io.File;
 
 class CloneRepo {
+
     static void clone(String repoUrl) {
         try {
             Git.cloneRepository()
-                    .setURI(repoUrl+".git")
-                    .setDirectory(new File("/Repo/"+UrlDetails.getRepoName(repoUrl)))
+                    .setURI(repoUrl + ".git")
+                    .setDirectory(new File("/Repo/" + UrlDetails.getRepoName(repoUrl)))
                     .call();
         } catch (GitAPIException e) {
             e.printStackTrace();

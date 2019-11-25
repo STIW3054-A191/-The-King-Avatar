@@ -27,7 +27,7 @@ public class ScrapeData {
 
             int i = 1;
             ArrayList<String> arrLink = RepoLink.getLink();
-            for(String link:arrLink){
+            for (String link : arrLink) {
                 System.out.printf("| %-10s| %-90s|\n", i, link);
                 System.out.printf("| %-10s| %-90s|\n", " ", "Cloning " + link);
                 CloneRepo.clone(link);
@@ -35,9 +35,7 @@ public class ScrapeData {
                 i++;
             }
 
-
-                    //result.add(new Data(matchLink.group()));
-
+            //result.add(new Data(matchLink.group()));
             System.out.println("----------------------------------------------------------------------------------------");
             //return result;
 

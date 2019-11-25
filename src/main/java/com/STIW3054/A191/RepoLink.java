@@ -13,8 +13,8 @@ class RepoLink {
         // Get assignment 1 link
         ArrayList<String> arrLink = new ArrayList<>();
         try {
-            final Document document = Jsoup.connect("https://github.com/STIW3054-A191/Assignments/issues/1").get();
-            Elements elements = document.select("table").select("a");
+            final Document doc = Jsoup.connect("https://github.com/STIW3054-A191/Assignments/issues/1").get();
+            Elements elements = doc.select("table").select("a");
 
             for (Element element : elements) {
                 String elementLink = element.attr("href");
