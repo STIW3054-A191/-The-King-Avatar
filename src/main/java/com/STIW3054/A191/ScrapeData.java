@@ -26,7 +26,7 @@ public class ScrapeData {
             System.out.println("----------------------------------------------------------------------------------------");
 
             int i = 1;
-            ArrayList<String> arrLink = getLink();
+            ArrayList<String> arrLink = RepoLink.getLink();
             for(String link:arrLink){
                 System.out.printf("| %-10s| %-90s|\n", i, link);
                 System.out.printf("| %-10s| %-90s|\n", " ", "Cloning " + link);
@@ -44,34 +44,6 @@ public class ScrapeData {
         } catch (Exception e) {
             //return null;
         }
-    }
-
-    static String getRepoName(String repoUrl) {
-        String[] splitUrl = repoUrl.split("/");
-        return splitUrl[splitUrl.length-1];
-    }
-
-    private static ArrayList<String> getLink() {
-        // Get assignment 1 link
-        ArrayList<String> arrLink = new ArrayList<>();
-        try {
-            final Document document = Jsoup.connect("https://github.com/STIW3054-A191/Assignments/issues/1").get();
-            Elements elements = document.select("table").select("a");
-
-            for (Element element : elements) {
-                String elementLink = element.attr("href");
-
-                // Test .git link
-                if(elementLink.endsWith(".git")){
-                    arrLink.add(elementLink.substring(0, elementLink.length() - 4));;
-                }else {
-                    arrLink.add(elementLink);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return arrLink;
     }
 
 }
