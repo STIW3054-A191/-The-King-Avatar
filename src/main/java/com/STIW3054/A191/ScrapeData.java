@@ -18,9 +18,9 @@ public class ScrapeData {
         try {
             System.out.println("");
             String URL = "https://github.com/STIW3054-A191/Assignments/issues/1";
-            Document doc = Jsoup.connect(URL).get();
-            String tittle = doc.title();
-            System.out.printf("%66s", tittle + "\n");
+            Document page = Jsoup.connect(URL).get();
+            String title = page.title();
+            System.out.printf("%66s", title + "\n");
             System.out.println("----------------------------------------------------------------------------------------");
             System.out.printf("| %-10s| %-90s|\n", "No", "Link");
             System.out.println("----------------------------------------------------------------------------------------");
