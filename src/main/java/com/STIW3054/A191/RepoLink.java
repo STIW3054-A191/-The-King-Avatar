@@ -20,9 +20,9 @@ class RepoLink {
                 String elementLink = element.attr("href");
 
                 // Test .git link
-                if(elementLink.endsWith(".git")){
+                if (elementLink.endsWith(".git")) {
                     arrLink.add(elementLink.substring(0, elementLink.length() - 4));
-                }else {
+                } else {
                     arrLink.add(elementLink);
                 }
             }
