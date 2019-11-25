@@ -4,7 +4,7 @@ public class UrlDetails {
 
     static String getRepoName(String repoUrl) {
         String[] splitUrl = repoUrl.split("/");
-        return splitUrl[splitUrl.length-1];
+        return splitUrl[splitUrl.length - 1];
     }
 
 }

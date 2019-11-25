@@ -7,7 +7,8 @@ public class App {
             ScrapeData save1 = new ScrapeData();
             save1.findAll();
 
-            System.out.println("\n\nSaving data to Excel...");
+            System.out.println("\n\nRunning");
+
             Thread.sleep(1000);// wait for 2 second
             System.out.println("Excel Written Successfully");
             System.out.println("END");
