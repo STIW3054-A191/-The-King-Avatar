@@ -16,7 +16,7 @@ public class ScrapeData {
 
     public void findAll() {
         try {
-            System.out.println("");
+
             String URL = "https://github.com/STIW3054-A191/Assignments/issues/1";
             Document page = Jsoup.connect(URL).get();
             String title = page.title();
@@ -35,9 +35,7 @@ public class ScrapeData {
                 i++;
             }
 
-            //result.add(new Data(matchLink.group()));
             System.out.println("----------------------------------------------------------------------------------------");
-            //return result;
 
         } catch (Exception e) {
             //return null;
