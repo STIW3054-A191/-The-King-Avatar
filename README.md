@@ -1,1 +1,34 @@
 # TheKingAvatar
+1. [Group Info](#group-info)
+1. [Introduction](#introduction)
+1. [Result/Output](#resultoutput)
+1. [UML Class Diagram](#uml-class-diagram)
+1. [YouTube Presentation](#youtube-presentation)
+1. [References](#references)
+
+## Group Info  
+1. Lim Guang Way 256750
+1. Tan Wei Di 259296
+1. Phuah Mei Qi 259501
+1. Soh Chee Fung 259521
+
+## Introduction  
+
+## Result/Output  
+
+## UML Class Diagram  
+
+## YouTube Presentation 
+
+## References  
+Adam Pritchard(2017) Markdown Cheatsheet. Retrieved from   
+&nbsp;&nbsp;&nbsp;&nbsp; https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+The Apache Software Foundation(2019) Busy Developers' Guide to HSSF and XSSF Features. Retrieved from   
+&nbsp;&nbsp;&nbsp;&nbsp; https://poi.apache.org/components/spreadsheet/quick-guide.html
+
+Shane Lee(2018) How to Web Scrape Stock Data with Java using the JSoup Library. Retrieved from   
+&nbsp;&nbsp;&nbsp;&nbsp; https://www.youtube.com/watch?v=tI1qGwhn_bs
+
+Vogella(2019) JGit - Tutorial. Retrieved from    
+&nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html
