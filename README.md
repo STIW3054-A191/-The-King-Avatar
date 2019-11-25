@@ -7,10 +7,10 @@
 1. [References](#references)
 
 ## Group Info  
-1. Lim Guang Way (256750)
-1. Tan Wei Di (259296)
-1. Phuah Mei Qi (259501)
-1. Soh Chee Fung (259521)
+1. Lim Guang Way 256750
+1. Tan Wei Di 259296
+1. Phuah Mei Qi 259501
+1. Soh Chee Fung 259521
 
 ## Introduction  
 
