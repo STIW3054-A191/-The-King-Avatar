@@ -2,7 +2,6 @@ package com.STIW3054.A191;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-
 import java.io.File;
 
 class CloneRepo {
