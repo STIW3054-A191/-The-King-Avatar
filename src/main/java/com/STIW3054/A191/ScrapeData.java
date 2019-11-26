@@ -21,18 +21,36 @@ public class ScrapeData {
             Document page = Jsoup.connect(URL).get();
             String title = page.title();
             System.out.printf("%66s", title + "\n");
-            System.out.println("----------------------------------------------------------------------------------------");
-            System.out.printf("| %-10s| %-90s|\n", "No", "Link");
-            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------------------------------------");
+            System.out.printf("| %-10s| %-90s| %-15s\n", "No", "Link", "ThreadNo");
+            System.out.println("---------------------------------------------------------------------------------------------------------------");
 
-            int i = 1;
             ArrayList<String> arrLink = RepoLink.getLink();
-            for (String link : arrLink) {
-                System.out.printf("| %-10s| %-90s|\n", i, link);
-                System.out.printf("| %-10s| %-90s|\n", " ", "Cloning " + link);
-                CloneRepo.clone(link);
-                System.out.printf("| %-10s| %-90s|\n", " ", "Completed Cloning");
-                i++;
+            for (int i = 0; i <= 28; i++) {
+                for (String link : arrLink) {
+                    //int i = 1;
+                    i++;
+                    System.out.printf("| %-10s", i);
+                    Thread run = new Thread(new Thread() {
+                        @Override
+                        public synchronized void run() {
+                            System.out.printf("| %-90s| %-15s|\n", link, " ");
+                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Cloning " + link, Thread.currentThread().getName());
+                            CloneRepo.clone(link);
+                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Completed Cloning", " ");
+                        }
+                    });
+                    run.start();
+
+                    try {
+
+                        run.join();
+                        run.sleep(500);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             System.out.println("----------------------------------------------------------------------------------------");

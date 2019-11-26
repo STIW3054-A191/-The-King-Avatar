@@ -7,10 +7,10 @@ public class App {
             ScrapeData save1 = new ScrapeData();
             save1.findAll();
 
-            System.out.println("\n\nRunning");
+            System.out.println("All Cloning Completed");
 
             Thread.sleep(1000);// wait for 2 second
-            System.out.println("Excel Written Successfully");
+            System.out.println("Repo Written Successfully");
             System.out.println("END");
         } catch (InterruptedException e) {
             e.printStackTrace();
