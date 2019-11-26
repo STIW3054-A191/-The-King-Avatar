@@ -22,18 +22,27 @@ public class ScrapeData {
             String title = page.title();
             System.out.printf("%66s", title + "\n");
             System.out.println("----------------------------------------------------------------------------------------");
-            System.out.printf("| %-10s| %-90s|\n", "No", "Link");
+            System.out.printf("| %-10s| %-90s| %-15s\n", "No", "Link");
             System.out.println("----------------------------------------------------------------------------------------");
 
             int i = 1;
-            ArrayList<String> arrLink = RepoLink.getLink();
-            for (String link : arrLink) {
-                System.out.printf("| %-10s| %-90s|\n", i, link);
-                System.out.printf("| %-10s| %-90s|\n", " ", "Cloning " + link);
-                CloneRepo.clone(link);
-                System.out.printf("| %-10s| %-90s|\n", " ", "Completed Cloning");
-                i++;
-            }
+            i++;
+            System.out.printf("| %-10s",i);
+            Thread run = new Thread(new Thread() {
+                @Override
+                public synchronized void run() {
+
+                    ArrayList<String> arrLink = RepoLink.getLink();
+                    for (String link : arrLink) {
+                        System.out.printf("| %-90s| %-15s|\n", link, " ");
+                        System.out.printf("| %-90s| %-15s|\n", "Cloning " + link, Thread.currentThread().getName());
+                        CloneRepo.clone(link);
+                        System.out.printf("| %-90s| %-15s|\n", "Completed Cloning", " ");
+                        
+                    }
+                }
+            });
+            run.start();
 
             System.out.println("----------------------------------------------------------------------------------------");
 
