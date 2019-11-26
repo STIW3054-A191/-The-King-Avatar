@@ -27,7 +27,7 @@ public class ScrapeData {
 
             int i = 1;
             i++;
-            System.out.printf("| %-10s",i);
+            System.out.printf("| %-10s", i);
             Thread run = new Thread(new Thread() {
                 @Override
                 public synchronized void run() {
@@ -38,7 +38,7 @@ public class ScrapeData {
                         System.out.printf("| %-90s| %-15s|\n", "Cloning " + link, Thread.currentThread().getName());
                         CloneRepo.clone(link);
                         System.out.printf("| %-90s| %-15s|\n", "Completed Cloning", " ");
-                        
+
                     }
                 }
             });
