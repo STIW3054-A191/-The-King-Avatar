@@ -30,5 +30,3 @@ The Apache Software Foundation(2019) Busy Developers' Guide to HSSF and XSSF Fea
 Shane Lee(2018) How to Web Scrape Stock Data with Java using the JSoup Library. Retrieved from   
 &nbsp;&nbsp;&nbsp;&nbsp; https://www.youtube.com/watch?v=tI1qGwhn_bs
 
-Vogella(2019) JGit - Tutorial. Retrieved from    
-&nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html
