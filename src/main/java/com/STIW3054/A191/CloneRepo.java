@@ -7,9 +7,7 @@ import java.io.File;
 class CloneRepo {
 
     static void clone(String repoUrl) {
-
         try {
-
             Git.cloneRepository()
                     .setURI(repoUrl + ".git")
                     .setDirectory(new File(RepoPath.getPath() + UrlDetails.getRepoName(repoUrl)))
