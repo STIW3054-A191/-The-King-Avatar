@@ -17,8 +17,8 @@ class RepoLink {
             final Document doc = Jsoup.connect("https://github.com/STIW3054-A191/Assignments/issues/1").get();
             Elements elements = doc.select("table").select("a");
 
-            for (Element arry : elements) {
-                String elementLink = arry.attr("href");
+            for (Element array : elements) {
+                String elementLink = array.attr("href");
 
                 // Test .git link
                 if (elementLink.endsWith(".git")) {
