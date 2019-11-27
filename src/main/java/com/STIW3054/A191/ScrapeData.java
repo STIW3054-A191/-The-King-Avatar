@@ -56,7 +56,8 @@ public class ScrapeData {
             System.out.println("----------------------------------------------------------------------------------------");
 
         } catch (Exception e) {
-            //return null;
+            System.out.println("Error encounter while running");
+            
         }
     }
 

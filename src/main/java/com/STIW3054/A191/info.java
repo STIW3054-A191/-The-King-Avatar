@@ -18,8 +18,8 @@ public class info{
         return line1;
     }
 
-    public void setLine1(String line1)
-    {
+    public void setLine1(String line1){
+
         this.line1 = line1;
     }
 

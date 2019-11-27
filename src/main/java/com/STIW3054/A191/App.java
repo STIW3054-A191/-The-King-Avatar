@@ -9,9 +9,11 @@ public class App {
 
             System.out.println("All Cloning Completed");
 
-            Thread.sleep(500);// wait for 2 second
+            Thread.sleep(500);
+
             System.out.println("Repo Written Successfully");
-            System.out.println("END");
+            System.out.println("Done");
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
