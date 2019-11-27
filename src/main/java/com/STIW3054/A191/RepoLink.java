@@ -11,25 +11,25 @@ class RepoLink {
 
     static ArrayList<String> getLink() {
         // Get assignment 1 link
-        ArrayList<String> arrLink = new ArrayList<>();
+        ArrayList<String> arrayLink = new ArrayList<>();
         try {
             // connect 
             final Document doc = Jsoup.connect("https://github.com/STIW3054-A191/Assignments/issues/1").get();
             Elements elements = doc.select("table").select("a");
 
-            for (Element arry : elements) {
-                String elementLink = arry.attr("href");
+            for (Element array : elements) {
+                String elementLink = array.attr("href");
 
                 // Test .git link
                 if (elementLink.endsWith(".git")) {
-                    arrLink.add(elementLink.substring(0, elementLink.length() - 4));
+                    arrayLink.add(elementLink.substring(0, elementLink.length() - 4));
                 } else {
-                    arrLink.add(elementLink);
+                    arrayLink.add(elementLink);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return arrLink;
+        return arrayLink;
     }
 }

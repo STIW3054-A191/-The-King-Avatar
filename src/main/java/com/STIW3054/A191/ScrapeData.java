@@ -25,9 +25,9 @@ public class ScrapeData {
             System.out.printf("| %-10s| %-90s| %-15s\n", "No", "Link", "ThreadNo");
             System.out.println("---------------------------------------------------------------------------------------------------------------");
 
-            ArrayList<String> arrLink = RepoLink.getLink();
+            ArrayList<String> arrayLink = RepoLink.getLink();
             for (int i = 0; i <= 28; i++) {
-                for (String link : arrLink) {
+                for (String link : arrayLink) {
                     //int i = 1;
                     i++;
                     System.out.printf("| %-10s", i);
@@ -35,9 +35,9 @@ public class ScrapeData {
                         @Override
                         public synchronized void run() {
                             System.out.printf("| %-90s| %-15s|\n", link, " ");
-                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Cloning " + link, Thread.currentThread().getName());
+                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Now Cloning" + link, Thread.currentThread().getName());
                             CloneRepo.clone(link);
-                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Completed Cloning", " ");
+                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Done Cloning", " ");
                         }
                     });
                     run.start();
@@ -45,7 +45,7 @@ public class ScrapeData {
                     try {
 
                         run.join();
-                        run.sleep(500);
+                        run.sleep(200);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
