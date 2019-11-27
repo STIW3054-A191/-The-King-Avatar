@@ -9,7 +9,7 @@ public class App {
 
             System.out.println("All Cloning Completed");
 
-            Thread.sleep(1000);// wait for 2 second
+            Thread.sleep(500);// wait for 2 second
             System.out.println("Repo Written Successfully");
             System.out.println("END");
         } catch (InterruptedException e) {
