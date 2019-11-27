@@ -37,7 +37,7 @@ public class ScrapeData {
                             System.out.printf("| %-90s| %-15s|\n", link, " ");
                             System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Now Cloning" + link, Thread.currentThread().getName());
                             CloneRepo.clone(link);
-                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Completed Cloning", " ");
+                            System.out.printf("| %-10s| %-90s| %-15s|\n", " ", "Done Cloning", " ");
                         }
                     });
                     run.start();
