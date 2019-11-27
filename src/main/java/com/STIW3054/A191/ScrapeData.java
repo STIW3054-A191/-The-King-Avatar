@@ -45,7 +45,7 @@ public class ScrapeData {
                     try {
 
                         run.join();
-                        run.sleep(500);
+                        run.sleep(200);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
