@@ -6,8 +6,8 @@ public class info
     private String line2;
     private String line3;
 
-    public info(String line1, String line2,String line3)
-    {
+    public info(String line1, String line2,String line3){
+
         this.line1 = line1;
         this.line2 = line2;
         this.line3 = line3;
