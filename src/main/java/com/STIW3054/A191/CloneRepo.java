@@ -12,7 +12,7 @@ class CloneRepo {
 
             Git.cloneRepository()
                     .setURI(repoUrl + ".git")
-                    .setDirectory(new File("/Repo/" + UrlDetails.getRepoName(repoUrl)))
+                    .setDirectory(new File(RepoPath.getPath() + UrlDetails.getRepoName(repoUrl)))
                     .call();
 
         } catch (GitAPIException e) {
