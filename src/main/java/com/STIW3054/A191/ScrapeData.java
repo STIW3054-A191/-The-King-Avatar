@@ -25,9 +25,9 @@ public class ScrapeData {
             System.out.printf("| %-10s| %-90s| %-15s\n", "No", "Link", "ThreadNo");
             System.out.println("---------------------------------------------------------------------------------------------------------------");
 
-            ArrayList<String> arrLink = RepoLink.getLink();
+            ArrayList<String> arrayLink = RepoLink.getLink();
             for (int i = 0; i <= 28; i++) {
-                for (String link : arrLink) {
+                for (String link : arrayLink) {
                     //int i = 1;
                     i++;
                     System.out.printf("| %-10s", i);
