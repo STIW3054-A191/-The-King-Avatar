@@ -1,7 +1,7 @@
 /*package com.STIW3054.A191;
 
-public class info
-{
+public class info{
+
     private String line1;
     private String line2;
     private String line3;
