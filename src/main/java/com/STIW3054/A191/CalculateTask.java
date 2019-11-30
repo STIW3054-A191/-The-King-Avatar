@@ -46,6 +46,11 @@ public class CalculateTask
         }
     }
 
+    public Path getExtdirs()
+    {
+        return extdirs;
+    }
+
 
 
 }
