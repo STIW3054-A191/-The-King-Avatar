@@ -29,5 +29,9 @@ public class CalculateTask
         this.outputFile = outputfile;
     }
 
+    public void setClassdir(File classDir)
+    {
+        this.classDir = classDir;
+    }
 
 }
