@@ -68,6 +68,12 @@ public class CalculateTask
 //            throw new BuildException("classdir attribute must be set!");
         }
 
+        if (!classDir.exists())
+        {
+//            throw new BuildException("classdir does not exist!");
+        }
+
+
 
 
 
