@@ -34,4 +34,18 @@ public class CalculateTask
         this.classDir = classDir;
     }
 
+    public void setExtdirs(Path e)
+    {
+        if (extdirs == null)
+        {
+            extdirs = e;
+        }
+
+        else {
+//            extdirs.append(e);
+        }
+    }
+
+
+
 }
