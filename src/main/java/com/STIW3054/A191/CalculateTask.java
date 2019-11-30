@@ -61,6 +61,15 @@ public class CalculateTask
         return extdirs;
     }
 
+    public void execute()
+    {
+        if (classDir == null)
+        {
+//            throw new BuildException("classdir attribute must be set!");
+        }
+
+
+
 
 
 
