@@ -2,7 +2,7 @@ package com.STIW3054.A191;
 
 import org.apache.poi.sl.draw.geom.Path;
 
-import java.io.File;
+import java.io.*;
 
 import static java.rmi.server.LogStream.log;
 
@@ -99,12 +99,27 @@ public class CalculateTask
 //            for (int i = 0; i < files.length; i++) {
 //                files[i] = classDir.getPath() + File.separatorChar + files[i];
 //            }
+        try {
+            OutputStream outputStream = new FileOutputStream(outputFile);
 
+            if (format.equals("xml")) {
+                PrintXmlResults outputXml = new PrintXmlResults(
+                        new PrintStream(outputStream));
 
+                outputXml.printHeader();
+                MetricsFilter.runMetrics(files, outputXml);
+                outputXml.printFooter();
+            } else {
+                PrintPlainResults outputPlain = new PrintPlainResults(
+                        new PrintStream(outputStream));
+                MetricsFilter.runMetrics(files, outputPlain);
+            }
 
+            outputStream.close();
 
-
-
-
-
+        } catch (IOException ioe) {
+            throw new BuildException("Error file handling: "
+                    + ioe.getMessage());
+        }
+    }
 }
