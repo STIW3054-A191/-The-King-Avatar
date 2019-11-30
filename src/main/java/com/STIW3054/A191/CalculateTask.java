@@ -23,4 +23,11 @@ public class CalculateTask
     {
         this.format = format;
     }
+
+    public void setOutputfile(File outputfile)
+    {
+        this.outputFile = outputfile;
+    }
+
+
 }
