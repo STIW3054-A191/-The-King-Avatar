@@ -4,6 +4,8 @@ import org.apache.poi.sl.draw.geom.Path;
 
 import java.io.File;
 
+import static java.rmi.server.LogStream.log;
+
 public class CalculateTask
 {
     private File outputFile;
@@ -87,6 +89,16 @@ public class CalculateTask
                         System.getProperty("java.ext.dirs") + File.pathSeparator +
                                 extdirs);
         }
+
+//        DirectoryScanner ds = super.getDirectoryScanner(classDir);
+
+//        String files[] = ds.getIncludedFiles();
+//        if (files.length == 0) {
+//            log("No class files in specified directory " + classDir);
+//        } else {
+//            for (int i = 0; i < files.length; i++) {
+//                files[i] = classDir.getPath() + File.separatorChar + files[i];
+//            }
 
 
 
