@@ -18,4 +18,9 @@ public class CalculateTask
     {
         this.format = "plain";
     }
+
+    public void setFormat(String format)
+    {
+        this.format = format;
+    }
 }
