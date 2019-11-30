@@ -73,7 +73,10 @@ public class CalculateTask
 //            throw new BuildException("classdir does not exist!");
         }
 
-
+        if (!classDir.isDirectory())
+        {
+//            throw new BuildException("classdir is not a directory!");
+        }
 
 
 
