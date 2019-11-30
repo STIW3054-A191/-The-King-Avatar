@@ -78,6 +78,18 @@ public class CalculateTask
 //            throw new BuildException("classdir is not a directory!");
         }
 
+//        if (extdirs != null && extdirs.size() > 0)
+        {
+            if (System.getProperty("java.ext.dirs").length() == 0)
+                System.setProperty("java.ext.dirs", extdirs.toString());
+            else
+                System.setProperty("java.ext.dirs",
+                        System.getProperty("java.ext.dirs") + File.pathSeparator +
+                                extdirs);
+        }
+
+
+
 
 
 
