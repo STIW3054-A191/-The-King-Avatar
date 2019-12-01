@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+/*package com.STIW3054.A191;
 
 public class App {
 
@@ -18,4 +18,4 @@ public class App {
             e.printStackTrace();
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+/*package com.STIW3054.A191;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,4 +61,4 @@ public class ScrapeData {
         }
     }
 
-}
+}*/
