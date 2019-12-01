@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+/*package com.STIW3054.A191;
 
 import org.apache.poi.sl.draw.geom.Path;
 
@@ -122,4 +122,4 @@ public class CalculateTask
                     + ioe.getMessage());
         }
     }
-}
+}*/

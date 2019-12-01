@@ -1,18 +1,49 @@
 package com.STIW3054.A191;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main (String[] args){
 
-        System.out.println("Checking folder : /target/repo/");
-
         // Delete /target/repo/ folder
+        System.out.println("Checking folder...\n/target/repo/");
         File file = new File(RepoPath.getPath());
         FileManager.deleteDir(file);
 
-        App c_app = new App();
-        c_app.app();
+        // Show total repositories
+        System.out.println("\nCheck total Repositories...");
+        ArrayList<String> arrLink = RepoLink.getLink();
+        int totalRepo = arrLink.size();
+        System.out.println("Total Repositories : "+totalRepo);
+
+        // Show PC total threads and threads use for cloning
+        System.out.println("\nCheck PC total threads...");
+        System.out.format("%-35s: %-20s\n","My PC total threads ", Threads.totalThreads());
+        System.out.format("%-35s: %-20s\n","Total threads use for cloning ", Threads.availableThreads());
+
+        // Cloning all repositories with threads
+        System.out.println("\nCloning...");
+        // Use CountDownLatch to check when all threads completed.
+        CountDownLatch latch = new CountDownLatch(totalRepo);
+        // Use ExecutorService to set max threads can run in same time. By using 3/4 from My PC total threads.
+        ExecutorService exec = Executors.newFixedThreadPool(Threads.availableThreads());
+        // Create threads to cloning
+        for(String link:arrLink){
+            Thread thread = new Thread(new CloneRepoRunnable(link, totalRepo, latch));
+            exec.execute(thread);
+        }
+        exec.shutdown();
+
+        // Wait after all threads completed.
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
