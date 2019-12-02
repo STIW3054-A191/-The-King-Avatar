@@ -56,23 +56,24 @@ public class Main {
 
 
 
-        //
+        //Get all folder inside target/repo
         File repoDir = new File(RepoPath.getPath());
         String[] allRepo = repoDir.list();
-
         if(allRepo!=null) {
             for (String repo : allRepo) {
 
                 File aRepoDir = new File(repoDir, repo);
                 if(aRepoDir.isDirectory()){
 
+                    //Check pom.xml file location
                     String pomPath = PomPath.getPath(aRepoDir);
                     if(pomPath!=null) {
+
+
                         System.out.println(pomPath);
 
                     }else {
-
-                        System.err.println(repo + " no pom.xml file");
+                        //For no maven file
                         //Save error to log
                         try {
                             FileHandler fileHandler = new FileHandler(repoDir.getPath()+"/"+repoNameDetails.getMatric(repo)+".log",true);
@@ -81,10 +82,13 @@ public class Main {
                             Logger logger = Logger.getLogger(repo);
                             logger.addHandler(fileHandler);
                             logger.setUseParentHandlers(false);
-                            logger.warning(repo+" no pom.xml file");
+                            logger.warning(repo+" no pom.xml file.");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
+                        //Print error
+                        System.err.println(repo + " no pom.xml file.");
                     }
                 }
             }
