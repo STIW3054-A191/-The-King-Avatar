@@ -1,13 +1,20 @@
 package com.STIW3054.A191;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 
 public class Main {
     public static void main (String[] args){
+
+        //Get start time
+        long startTime = System.currentTimeMillis();
 
         // Delete /target/repo/ folder
         System.out.println("Checking folder...\n/target/repo/");
@@ -44,6 +51,71 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
 
+        System.out.println("Completed Cloning");
+
+
+
+        //
+        File repoDir = new File(RepoPath.getPath());
+        String[] allRepo = repoDir.list();
+
+        if(allRepo!=null) {
+            for (String repo : allRepo) {
+
+                File aRepoDir = new File(repoDir, repo);
+                if(aRepoDir.isDirectory()){
+
+                    String pomPath = PomPath.getPath(aRepoDir);
+                    if(pomPath!=null) {
+                        System.out.println(pomPath);
+
+                    }else {
+
+                        System.err.println(repo + " no pom.xml file");
+                        //Save error to log
+                        try {
+                            FileHandler fileHandler = new FileHandler(repoDir.getPath()+"/"+repoNameDetails.getMatric(repo)+".log",true);
+                            fileHandler.setFormatter(new SimpleFormatter());
+
+                            Logger logger = Logger.getLogger(repo);
+                            logger.addHandler(fileHandler);
+                            logger.setUseParentHandlers(false);
+                            logger.warning(repo+" no pom.xml file");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Get end time and time elapsed
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println("\nExecution time in milliseconds: " + timeElapsed);
+    }
 }
