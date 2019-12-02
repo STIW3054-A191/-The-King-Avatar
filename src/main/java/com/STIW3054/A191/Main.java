@@ -1,7 +1,10 @@
 package com.STIW3054.A191;
 
+import org.apache.maven.shared.invoker.*;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -54,7 +57,8 @@ public class Main {
 
         System.out.println("Completed Cloning");
 
-
+        // Set maven home for invoker used
+        System.setProperty("maven.home", MavenHome.getPath());
 
         //Get all folder inside target/repo
         File repoDir = new File(RepoPath.getPath());
@@ -69,8 +73,25 @@ public class Main {
                     String pomPath = PomPath.getPath(aRepoDir);
                     if(pomPath!=null) {
 
+                        InvocationRequest request = new DefaultInvocationRequest();
+                        request.setPomFile(new File(pomPath));
+                        request.setGoals(Collections.singletonList("clean install"));
 
-                        System.out.println(pomPath);
+                        Invoker invoker = new DefaultInvoker();
+                        invoker.setLogger(new PrintStreamLogger(System.err ,InvokerLogger.ERROR));
+                        invoker.setOutputHandler(null);
+
+                        try {
+                            if(invoker.execute( request ).getExitCode()==0){
+                                System.out.println(repo+" success");
+
+                            }else {
+                                System.err.println(repo+" BUILD FAILURE");
+                            }
+                        } catch (MavenInvocationException e) {
+                            e.printStackTrace();
+                        }
+
 
                     }else {
                         //For no maven file
