@@ -53,6 +53,14 @@ public class ClassMetrics
     /** Return the Response for a Class */
     public int getRfc() { return rfc; }
 
+    /** Set the depth of inheritence tree metric */
+    public void setDit(int d) { dit = d; }
+
+    /** Return the depth of the class's inheritance tree */
+    public int getDit() { return dit; }
+
+
+
 
 
 
