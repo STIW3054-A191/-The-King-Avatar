@@ -114,13 +114,14 @@ public class ClassMetrics
                         " " + npm);
     }
 
-
-
-
-
-
-
-
-
+    /** Mark the instance as visited by the metrics analyzer */
+    public void setVisited() { visited = true; }
+    /**
+     * Return true if the class has been visited by the metrics analyzer.
+     * Classes may appear in the collection as a result of some kind
+     * of coupling.  However, unless they are visited and analyzed,
+     * we do not want them to appear in the output results.
+     */
+    public boolean isVisited() { return visited; }
 
 }
