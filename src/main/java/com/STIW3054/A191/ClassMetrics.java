@@ -77,6 +77,18 @@ public class ClassMetrics
     /** Add a class to the set of classes that depend on this class */
     public void addAfferentCoupling(String name) { afferentCoupledClasses.add(name); }
 
+    /** Increment the number of public methods count */
+    public void incNpm() { npm++; }
+
+    /** Return the number of public methods metric */
+    public int getNpm() { return npm; }
+
+    /** Return true if the class is public */
+    public boolean isPublic() { return isPublicClass; }
+
+    /** Call to set the class as public */
+    public void setPublic() { isPublicClass = true; }
+
 
 
 
