@@ -100,6 +100,23 @@ public class ClassMetrics
     }
 
 
+    /** Return the 6 CK metrics plus Ce as a space-separated string */
+    public String toString()
+    {
+        return (
+                wmc +
+                        " " + getDit() +
+                        " " + noc +
+                        " " + cbo +
+                        " " + rfc +
+                        " " + lcom +
+                        " " + getCa()+
+                        " " + npm);
+    }
+
+
+
+
 
 
 
