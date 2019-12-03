@@ -47,6 +47,12 @@ public class ClassMetrics
     /** Return the number of children */
     public int getNoc() { return noc; }
 
+    /** Increment the Response for a Class */
+    public void setRfc(int r) { rfc = r; }
+
+    /** Return the Response for a Class */
+    public int getRfc() { return rfc; }
+
 
 
 
