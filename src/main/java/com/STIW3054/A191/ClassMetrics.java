@@ -59,6 +59,12 @@ public class ClassMetrics
     /** Return the depth of the class's inheritance tree */
     public int getDit() { return dit; }
 
+    /** Set the coupling between object classes metric */
+    public void setCbo(int c) { cbo = c; }
+
+    /** Return the coupling between object classes metric */
+    public int getCbo() { return cbo; }
+
 
 
 
