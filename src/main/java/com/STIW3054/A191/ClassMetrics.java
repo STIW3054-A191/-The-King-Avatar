@@ -71,6 +71,12 @@ public class ClassMetrics
     /** Set the class's lack of cohesion in methods metric */
     public void setLcom(int l) { lcom = l; }
 
+    /** Return the class's afferent couplings metric */
+    public int getCa() { return afferentCoupledClasses.size(); }
+
+    /** Add a class to the set of classes that depend on this class */
+    public void addAfferentCoupling(String name) { afferentCoupledClasses.add(name); }
+
 
 
 
