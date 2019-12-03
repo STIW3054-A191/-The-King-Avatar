@@ -35,5 +35,13 @@ public class ClassMetrics
         afferentCoupledClasses = new HashSet<String>();
     }
 
+    /** Increment the weighted methods count */
+    public void incWmc() { wmc++; }
+
+    /** Return the weighted methods per class metric */
+    public int getWmc() { return wmc; }
+
+
+
 
 }
