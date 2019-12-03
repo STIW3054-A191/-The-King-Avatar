@@ -65,6 +65,12 @@ public class ClassMetrics
     /** Return the coupling between object classes metric */
     public int getCbo() { return cbo; }
 
+    /** Return the class's lack of cohesion in methods metric */
+    public int getLcom() { return lcom; }
+
+    /** Set the class's lack of cohesion in methods metric */
+    public void setLcom(int l) { lcom = l; }
+
 
 
 
