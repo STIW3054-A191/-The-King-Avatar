@@ -41,6 +41,14 @@ public class ClassMetrics
     /** Return the weighted methods per class metric */
     public int getWmc() { return wmc; }
 
+    /** Increment the number of children */
+    public void incNoc() { noc++; }
+
+    /** Return the number of children */
+    public int getNoc() { return noc; }
+
+
+
 
 
 
