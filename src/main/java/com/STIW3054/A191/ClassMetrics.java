@@ -89,6 +89,16 @@ public class ClassMetrics
     /** Call to set the class as public */
     public void setPublic() { isPublicClass = true; }
 
+    /** Return true if the class name is part of the Java SDK */
+    public static boolean isJdkClass(String s)
+    {
+        return (s.startsWith("java.") ||
+                s.startsWith("javax.") ||
+                s.startsWith("org.omg.") ||
+                s.startsWith("org.w3c.dom.") ||
+                s.startsWith("org.xml.sax."));
+    }
+
 
 
 
