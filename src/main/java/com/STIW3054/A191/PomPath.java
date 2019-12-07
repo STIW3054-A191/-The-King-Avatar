@@ -8,15 +8,15 @@ public class PomPath {
         String path = null;
         if (dir.isDirectory()) {
             String[] children = dir.list();
-            if(children!=null) {
+            if (children != null) {
                 for (String child : children) {
                     File aChild = new File(dir, child);
-                    if(child.equals("pom.xml")){
+                    if (child.equals("pom.xml")) {
                         path = aChild.getPath();
                         break;
-                    }else if(aChild.isDirectory()) {
+                    } else if (aChild.isDirectory()) {
                         path = getPath(aChild);
-                        if (path!=null){
+                        if (path != null) {
                             break;
                         }
                     }
