@@ -3,6 +3,7 @@ package com.STIW3054.A191;
 import java.io.File;
 
 public class MavenHome {
+
     public static String getPath() {
 
         if (System.getenv("M2_HOME") != null) {
