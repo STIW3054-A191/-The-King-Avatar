@@ -125,3 +125,4 @@ public class ClassMetrics
     public boolean isVisited() { return visited; }
 
 }
+
