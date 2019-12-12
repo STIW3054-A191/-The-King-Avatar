@@ -10,9 +10,9 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-
 public class Main {
-    public static void main (String[] args){
+
+    public static void main(String[] args) {
 
         //Get start time
         TimeElapsed.start();
@@ -26,12 +26,12 @@ public class Main {
         System.out.println("\nCheck total Repositories...");
         ArrayList<String> arrLink = RepoLink.getLink();
         int totalRepo = arrLink.size();
-        System.out.println("Total Repositories : "+totalRepo);
+        System.out.println("Total Repositories : " + totalRepo);
 
         // Show PC total threads and threads use for cloning
         System.out.println("\nCheck PC total threads...");
-        System.out.format("%-35s: %-20s\n","My PC total threads ", Threads.totalThreads());
-        System.out.format("%-35s: %-20s\n","Total threads use for cloning ", Threads.availableLightThreads());
+        System.out.format("%-35s: %-20s\n", "My PC total threads ", Threads.totalThreads());
+        System.out.format("%-35s: %-20s\n", "Total threads use for cloning ", Threads.availableLightThreads());
 
         // Cloning all repositories with threads
         System.out.println("\nCloning...");
@@ -40,7 +40,7 @@ public class Main {
         // Use ExecutorService to set max threads can run in same time. By using 3/4 from My PC total threads.
         ExecutorService exec = Executors.newFixedThreadPool(Threads.availableLightThreads());
         // Create threads to cloning
-        for(String link:arrLink){
+        for (String link : arrLink) {
             Thread thread = new Thread(new CloneRepoRunnable(link, totalRepo, latch));
             exec.execute(thread);
         }
@@ -65,7 +65,7 @@ public class Main {
         //Get all folder inside target/repo
         File repoDir = new File(RepoPath.getPath());
         String[] allRepo = repoDir.list();
-        if(allRepo!=null) {
+        if (allRepo != null) {
 
             CountDownLatch latch2 = new CountDownLatch(allRepo.length);
             ExecutorService exec2 = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
@@ -73,34 +73,33 @@ public class Main {
             for (String repo : allRepo) {
 
                 File aRepoDir = new File(repoDir, repo);
-                if(aRepoDir.isDirectory()){
+                if (aRepoDir.isDirectory()) {
 
                     //Check pom.xml file location
                     String pomPath = PomPath.getPath(aRepoDir);
-                    if(pomPath!=null) {
+                    if (pomPath != null) {
 
                         Thread thread = new Thread(() -> {
 
                         MavenFunction.cleanInstall(pomPath,repoNameDetails.getMatric(repo));
 
-                        latch2.countDown();
+                            latch2.countDown();
 
-                       });
+                        });
 
                         exec2.execute(thread);
 
-
-                    }else {
+                    } else {
                         //For no pom.xml file
 
                         //Save error to log
                         try {
-                            FileHandler fileHandler = new FileHandler(repoDir.getPath()+"/"+repoNameDetails.getMatric(repo)+".log",true);
+                            FileHandler fileHandler = new FileHandler(repoDir.getPath() + "/" + repoNameDetails.getMatric(repo) + ".log", true);
                             fileHandler.setFormatter(new SimpleFormatter());
-                                Logger logger = Logger.getLogger(repo);
-                                logger.addHandler(fileHandler);
-                                logger.setUseParentHandlers(false);
-                                logger.warning(repo+" no pom.xml file.");
+                            Logger logger = Logger.getLogger(repo);
+                            logger.addHandler(fileHandler);
+                            logger.setUseParentHandlers(false);
+                            logger.warning(repo + " no pom.xml file.");
                             fileHandler.close();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -111,7 +110,7 @@ public class Main {
 
                         latch2.countDown();
                     }
-                }else {
+                } else {
                     latch2.countDown();
                 }
             }
@@ -124,7 +123,6 @@ public class Main {
             }
 
         }
-
 
 
         //Get end time and time elapsed

@@ -1,6 +1,5 @@
 package com.STIW3054.A191;
 
-
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
@@ -13,7 +12,7 @@ class CloneRepoRunnable implements Runnable {
     private int totalRepo;
     private CountDownLatch latch;
 
-    CloneRepoRunnable(String repoUrl, int totalRepo, CountDownLatch latch){
+    CloneRepoRunnable(String repoUrl, int totalRepo, CountDownLatch latch) {
         this.repoUrl = repoUrl;
         this.totalRepo = totalRepo;
         this.latch = latch;
@@ -34,7 +33,7 @@ class CloneRepoRunnable implements Runnable {
         synchronized (CloneRepoRunnable.class) {
             latch.countDown();
             System.out.format("%-10s %-40s %-20s\n",
-                    totalRepo-latch.getCount() + "/" + totalRepo,
+                    totalRepo - latch.getCount() + "/" + totalRepo,
                     UrlDetails.getRepoName(repoUrl),
                     "Cloning Completed !");
         }
