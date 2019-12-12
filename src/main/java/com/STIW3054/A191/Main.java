@@ -1,14 +1,11 @@
 package com.STIW3054.A191;
 
-import org.apache.maven.shared.invoker.*;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -18,7 +15,7 @@ public class Main {
     public static void main (String[] args){
 
         //Get start time
-        long startTime = System.currentTimeMillis();
+        TimeElapsed.start();
 
         // Delete /target/repo/ folder
         System.out.println("Checking folder...\n/target/repo/");
@@ -58,8 +55,12 @@ public class Main {
 
         System.out.println("Cloning Completed !");
 
-        // Set maven home for invoker used
-        System.setProperty("maven.home", MavenHome.getPath());
+        System.out.println(System.getProperty("maven.home"));
+        if(System.getProperty("maven.home")==null) {
+            // Set maven home for invoker used
+            System.setProperty("maven.home", MavenHome.getPath());
+        }
+        System.out.println(System.getProperty("maven.home"));
 
         //Get all folder inside target/repo
         File repoDir = new File(RepoPath.getPath());
@@ -80,23 +81,7 @@ public class Main {
 
                         Thread thread = new Thread(() -> {
 
-                        InvocationRequest request = new DefaultInvocationRequest();
-                        request.setPomFile(new File(pomPath));
-                        request.setGoals(Collections.singletonList("clean install"));
-
-                        Invoker invoker = new DefaultInvoker();
-                        invoker.setLogger(new PrintStreamLogger(System.err ,InvokerLogger.ERROR));
-                        invoker.setOutputHandler(null);
-
-                        try {
-                            if(invoker.execute( request ).getExitCode()==0){
-                                System.out.println(repo+" BUILD SUCCESS");
-                            }else {
-                                System.err.println(repo+" BUILD FAILURE");
-                            }
-                        } catch (MavenInvocationException e) {
-                            e.printStackTrace();
-                        }
+                        MavenFunction.cleanInstall(pomPath,repoNameDetails.getMatric(repo));
 
                         latch2.countDown();
 
@@ -140,29 +125,9 @@ public class Main {
 
         }
 
+
+
         //Get end time and time elapsed
-        long endTime = System.currentTimeMillis();
-        long timeElapsed = endTime - startTime;
-
-        long days = TimeUnit.MILLISECONDS.toDays(timeElapsed);
-        long hours = TimeUnit.MILLISECONDS.toHours(timeElapsed) % 24;
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(timeElapsed) % 60 ;
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(timeElapsed) % 60 ;
-        long milliseconds = timeElapsed % 1000 ;
-
-        System.out.print("\nExecution time : ");
-
-        if(days!=0){
-            System.out.print(days+" Days, "+hours+" Hours, "+minutes+" Minutes, "+seconds+" Seconds, "+milliseconds+" Milliseconds.");
-        }else if(hours!=0){
-            System.out.print(hours+" Hours, "+minutes+" Minutes, "+seconds+" Seconds, "+milliseconds+" Milliseconds.");
-        }else if(minutes!=0){
-            System.out.print(minutes+" Minutes, "+seconds+" Seconds, "+milliseconds+" Milliseconds.");
-        }else if(seconds!=0){
-            System.out.print(seconds+" Seconds, "+milliseconds+" Milliseconds.");
-        }else {
-            System.out.print(milliseconds + " Milliseconds.");
-        }
-
+        TimeElapsed.endAndOutput();
     }
 }
