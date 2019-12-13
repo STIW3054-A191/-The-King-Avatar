@@ -63,12 +63,28 @@ public class MavenCleanInstallRunnable implements Runnable{
                     File logFile = new File(logFilePath);
                     boolean success = logFile.delete();
                     if (success) {
-                        System.out.println(repoName + " BUILD SUCCESS");
+
+                        synchronized (MavenCleanInstallRunnable.class) {
+                            latch.countDown();
+                            //Print error
+                            System.out.format("%-10s %-40s %-20s\n",
+                                    totalRepo - latch.getCount() + "/" + totalRepo,
+                                    repoName,
+                                    "Build Success !");
+                        }
+
                     }
                 } else {
-                    System.err.println(repoName + " BUILD FAILURE");
+
+                    synchronized (MavenCleanInstallRunnable.class) {
+                        latch.countDown();
+                        //Print error
+                        System.err.format("%-10s %-40s %-20s\n",
+                                totalRepo - latch.getCount() + "/" + totalRepo,
+                                repoName,
+                                "Build Failure !");
+                    }
                 }
-                latch.countDown();
 
             } catch (FileNotFoundException | MavenInvocationException e) {
                 e.printStackTrace();
@@ -88,10 +104,14 @@ public class MavenCleanInstallRunnable implements Runnable{
                 e.printStackTrace();
             }
 
-            latch.countDown();
-
-            //Print error
-            System.err.println(" no pom.xml file.");
+            synchronized (MavenCleanInstallRunnable.class) {
+                latch.countDown();
+                //Print error
+                System.err.format("%-10s %-40s %-20s\n",
+                        totalRepo - latch.getCount() + "/" + totalRepo,
+                        repoName,
+                        "No pom.xml file !");
+            }
         }
     }
 }
