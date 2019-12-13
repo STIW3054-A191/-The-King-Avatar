@@ -6,9 +6,13 @@ import org.apache.maven.shared.invoker.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class MavenCleanInstallRunnable implements Runnable{
     private String repoUrl;
@@ -26,9 +30,8 @@ public class MavenCleanInstallRunnable implements Runnable{
 
 
         String repoPath = RepoFolderPath.getPath()+UrlDetails.getRepoName(repoUrl);
-        String logFilePath = RepoFolderPath.getPath() + UrlDetails.getMatric(repoUrl) + ".log";
+        String logFilePath = RepoFolderPath.getPath().substring(1) + UrlDetails.getMatric(repoUrl) + ".log";
         String repoName = UrlDetails.getRepoName(repoUrl);
-
 
         String pomPath = PomPath.getPath(new File(repoPath));
         if(pomPath!=null) {
@@ -71,6 +74,19 @@ public class MavenCleanInstallRunnable implements Runnable{
                 e.printStackTrace();
             }
         }else {
+
+            //Save error to log
+            try {
+                FileHandler fileHandler = new FileHandler(logFilePath, true);
+                fileHandler.setFormatter(new SimpleFormatter());
+                Logger logger = Logger.getLogger(repoName);
+                logger.addHandler(fileHandler);
+                logger.setUseParentHandlers(false);
+                logger.warning(repoName + " no pom.xml file.");
+                fileHandler.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             latch.countDown();
 
