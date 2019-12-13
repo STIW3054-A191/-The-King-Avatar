@@ -1,8 +1,9 @@
 package com.STIW3054.A191;
 
+import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,9 +18,15 @@ public class Main {
         //Get start time
         TimeElapsed.start();
 
+        // Set maven home for invoker used
+        System.out.println("Checking Maven Home...");
+        if(System.getProperty("maven.home")==null) {
+            System.setProperty("maven.home", MavenHome.getPath());
+        }
+
         // Delete /target/repo/ folder
-        System.out.println("Checking folder...\n/target/repo/");
-        File file = new File(RepoPath.getPath());
+        System.out.println("\nChecking folder...\n/target/repo/");
+        File file = new File(RepoFolderPath.getPath());
         FileManager.deleteDir(file);
 
         // Show total repositories
@@ -55,20 +62,32 @@ public class Main {
 
         System.out.println("Cloning Completed !");
 
-        System.out.println(System.getProperty("maven.home"));
-        if(System.getProperty("maven.home")==null) {
-            // Set maven home for invoker used
-            System.setProperty("maven.home", MavenHome.getPath());
+
+        CountDownLatch latchMavenCleanInstall = new CountDownLatch(totalRepo);
+        ExecutorService execMavenCleanInstall = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
+        for (String link : arrLink) {
+            Thread thread = new Thread(new MavenCleanInstallRunnable(link, totalRepo, latchMavenCleanInstall));
+            execMavenCleanInstall.execute(thread);
         }
-        System.out.println(System.getProperty("maven.home"));
+        execMavenCleanInstall.shutdown();
+
+        // Wait after all threads completed.
+        try {
+            latchMavenCleanInstall.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+/*
 
         //Get all folder inside target/repo
-        File repoDir = new File(RepoPath.getPath());
+        File repoDir = new File(RepoFolderPath.getPath());
         String[] allRepo = repoDir.list();
         if (allRepo != null) {
 
             CountDownLatch latch2 = new CountDownLatch(allRepo.length);
             ExecutorService exec2 = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
+
+
 
             for (String repo : allRepo) {
 
@@ -80,11 +99,8 @@ public class Main {
                     if (pomPath != null) {
 
                         Thread thread = new Thread(() -> {
-
-                        MavenFunction.cleanInstall(pomPath,repoNameDetails.getMatric(repo));
-
+                            MavenFunction123.cleanInstall(pomPath,repoNameDetails.getMatric(repo));
                             latch2.countDown();
-
                         });
 
                         exec2.execute(thread);
@@ -110,7 +126,7 @@ public class Main {
 
                         latch2.countDown();
                     }
-                } else {
+                }else{
                     latch2.countDown();
                 }
             }
@@ -124,7 +140,7 @@ public class Main {
 
         }
 
-
+*/
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
     }

@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.MavenFunction;
 
 import java.io.File;
 
