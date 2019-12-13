@@ -1,16 +1,13 @@
 package com.STIW3054.A191;
 
 import org.apache.maven.shared.invoker.*;
-import org.apache.maven.shared.utils.cli.CommandLineException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
-class MavenFunction {
+class MavenFunction123 {
 
     static void cleanInstall(String pomPath,String matricNo){
         InvocationRequest request = new DefaultInvocationRequest();
@@ -24,7 +21,7 @@ class MavenFunction {
         PrintStream console = System.out;
         PrintStream o = null;
         try {
-            o = new PrintStream(new File(RepoPath.getPath()+matricNo+".log"));
+            o = new PrintStream(new File(RepoFolderPath.getPath()+matricNo+".log"));
             // Assign o to output stream
             System.setOut(o);
 
@@ -44,16 +41,20 @@ class MavenFunction {
             assert o != null;
             o.close();
 
-            if (invocationResult.getExitCode() == 0) {
-                File logFile = new File(RepoPath.getPath()+matricNo+".log");
-                boolean success = logFile.delete();
-                if (success) {
-                    System.out.println(pomPath+" BUILD SUCCESS");
-                }
+            synchronized (MavenFunction123.class) {
 
-            }else {
-                System.err.println(pomPath+" BUILD FAILURE");
+                if (invocationResult.getExitCode() == 0) {
+                    File logFile = new File(RepoFolderPath.getPath() + matricNo + ".log");
+                    boolean success = logFile.delete();
+                    if (success) {
+                        System.out.println(pomPath + " BUILD SUCCESS");
+                    }
+
+                } else {
+                    System.err.println(pomPath + " BUILD FAILURE");
+                }
             }
+
         } catch (MavenInvocationException e) {
             e.printStackTrace();
         }

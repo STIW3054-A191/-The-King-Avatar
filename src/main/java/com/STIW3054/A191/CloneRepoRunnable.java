@@ -24,7 +24,7 @@ class CloneRepoRunnable implements Runnable {
         try {
             Git.cloneRepository()
                     .setURI(repoUrl + ".git")
-                    .setDirectory(new File(RepoPath.getPath() + UrlDetails.getRepoName(repoUrl)))
+                    .setDirectory(new File(RepoFolderPath.getPath() + UrlDetails.getRepoName(repoUrl)))
                     .call();
         } catch (GitAPIException e) {
             e.printStackTrace();

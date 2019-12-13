@@ -1,14 +1,14 @@
 package com.STIW3054.A191;
 
+import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
+import com.STIW3054.A191.MavenFunction.MavenHome;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 public class Main {
 
@@ -17,9 +17,14 @@ public class Main {
         //Get start time
         TimeElapsed.start();
 
+        // Set maven home for invoker used
+        System.out.println("Checking Maven Home...");
+        MavenHome.setHome();
+
+
         // Delete /target/repo/ folder
-        System.out.println("Checking folder...\n/target/repo/");
-        File file = new File(RepoPath.getPath());
+        System.out.println("\nChecking folder...\n/target/repo/");
+        File file = new File(RepoFolderPath.getPath());
         FileManager.deleteDir(file);
 
         // Show total repositories
@@ -34,7 +39,7 @@ public class Main {
         System.out.format("%-35s: %-20s\n", "Total threads use for cloning ", Threads.availableLightThreads());
 
         // Cloning all repositories with threads
-        System.out.println("\nCloning...");
+        System.out.println("\nCloning Repositories...");
         // Use CountDownLatch to check when all threads completed.
         CountDownLatch latch = new CountDownLatch(totalRepo);
         // Use ExecutorService to set max threads can run in same time. By using 3/4 from My PC total threads.
@@ -55,75 +60,24 @@ public class Main {
 
         System.out.println("Cloning Completed !");
 
-        System.out.println(System.getProperty("maven.home"));
-        if(System.getProperty("maven.home")==null) {
-            // Set maven home for invoker used
-            System.setProperty("maven.home", MavenHome.getPath());
+        System.out.println("\nMaven Build Repositories...");
+
+        CountDownLatch latchMavenCleanInstall = new CountDownLatch(totalRepo);
+        ExecutorService execMavenCleanInstall = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
+        for (String link : arrLink) {
+            Thread thread = new Thread(new MavenCleanInstallRunnable(link, totalRepo, latchMavenCleanInstall));
+            execMavenCleanInstall.execute(thread);
         }
-        System.out.println(System.getProperty("maven.home"));
+        execMavenCleanInstall.shutdown();
 
-        //Get all folder inside target/repo
-        File repoDir = new File(RepoPath.getPath());
-        String[] allRepo = repoDir.list();
-        if (allRepo != null) {
-
-            CountDownLatch latch2 = new CountDownLatch(allRepo.length);
-            ExecutorService exec2 = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
-
-            for (String repo : allRepo) {
-
-                File aRepoDir = new File(repoDir, repo);
-                if (aRepoDir.isDirectory()) {
-
-                    //Check pom.xml file location
-                    String pomPath = PomPath.getPath(aRepoDir);
-                    if (pomPath != null) {
-
-                        Thread thread = new Thread(() -> {
-
-                        MavenFunction.cleanInstall(pomPath,repoNameDetails.getMatric(repo));
-
-                            latch2.countDown();
-
-                        });
-
-                        exec2.execute(thread);
-
-                    } else {
-                        //For no pom.xml file
-
-                        //Save error to log
-                        try {
-                            FileHandler fileHandler = new FileHandler(repoDir.getPath() + "/" + repoNameDetails.getMatric(repo) + ".log", true);
-                            fileHandler.setFormatter(new SimpleFormatter());
-                            Logger logger = Logger.getLogger(repo);
-                            logger.addHandler(fileHandler);
-                            logger.setUseParentHandlers(false);
-                            logger.warning(repo + " no pom.xml file.");
-                            fileHandler.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        //Print error
-                        System.err.println(repo + " no pom.xml file.");
-
-                        latch2.countDown();
-                    }
-                } else {
-                    latch2.countDown();
-                }
-            }
-
-            exec2.shutdown();
-            try {
-                latch2.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+        // Wait after all threads completed.
+        try {
+            latchMavenCleanInstall.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
+        System.out.println("Cloning Completed !");
 
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
