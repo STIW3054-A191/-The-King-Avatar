@@ -76,7 +76,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("Cloning Completed !");
+        System.out.println("Maven Build Completed !");
 
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
