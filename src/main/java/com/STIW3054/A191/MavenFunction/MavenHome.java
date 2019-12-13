@@ -1,10 +1,16 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.MavenFunction;
 
 import java.io.File;
 
 public class MavenHome {
 
-    public static String getPath() {
+    public static void setHome() {
+        if (System.getProperty("maven.home") == null) {
+            System.setProperty("maven.home", getPath());
+        }
+    }
+
+    private static String getPath() {
 
         if (System.getenv("M2_HOME") != null) {
             return System.getenv("M2_HOME") + "/bin/mvn";

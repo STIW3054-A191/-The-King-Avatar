@@ -1,15 +1,14 @@
 package com.STIW3054.A191;
 
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
+import com.STIW3054.A191.MavenFunction.MavenHome;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 public class Main {
 
@@ -20,9 +19,8 @@ public class Main {
 
         // Set maven home for invoker used
         System.out.println("Checking Maven Home...");
-        if(System.getProperty("maven.home")==null) {
-            System.setProperty("maven.home", MavenHome.getPath());
-        }
+        MavenHome.setHome();
+
 
         // Delete /target/repo/ folder
         System.out.println("\nChecking folder...\n/target/repo/");
