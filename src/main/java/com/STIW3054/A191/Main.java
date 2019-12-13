@@ -21,7 +21,6 @@ public class Main {
         System.out.println("Checking Maven Home...");
         MavenHome.setHome();
 
-
         // Delete /target/repo/ folder
         System.out.println("\nChecking folder...\n/target/repo/");
         File file = new File(RepoFolderPath.getPath());
@@ -41,19 +40,19 @@ public class Main {
         // Cloning all repositories with threads
         System.out.println("\nCloning Repositories...");
         // Use CountDownLatch to check when all threads completed.
-        CountDownLatch latch = new CountDownLatch(totalRepo);
+        CountDownLatch latchCloneRepo = new CountDownLatch(totalRepo);
         // Use ExecutorService to set max threads can run in same time. By using 3/4 from My PC total threads.
-        ExecutorService exec = Executors.newFixedThreadPool(Threads.availableLightThreads());
+        ExecutorService execCloneRepo = Executors.newFixedThreadPool(Threads.availableLightThreads());
         // Create threads to cloning
         for (String link : arrLink) {
-            Thread thread = new Thread(new CloneRepoRunnable(link, totalRepo, latch));
-            exec.execute(thread);
+            Thread threadCloneRepo = new Thread(new CloneRepoRunnable(link, totalRepo, latchCloneRepo));
+            execCloneRepo.execute(threadCloneRepo);
         }
-        exec.shutdown();
+        execCloneRepo.shutdown();
 
         // Wait after all threads completed.
         try {
-            latch.await();
+            latchCloneRepo.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -65,8 +64,8 @@ public class Main {
         CountDownLatch latchMavenCleanInstall = new CountDownLatch(totalRepo);
         ExecutorService execMavenCleanInstall = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
         for (String link : arrLink) {
-            Thread thread = new Thread(new MavenCleanInstallRunnable(link, totalRepo, latchMavenCleanInstall));
-            execMavenCleanInstall.execute(thread);
+            Thread threadMavenCleanInstall = new Thread(new MavenCleanInstallRunnable(link, totalRepo, latchMavenCleanInstall));
+            execMavenCleanInstall.execute(threadMavenCleanInstall);
         }
         execMavenCleanInstall.shutdown();
 
