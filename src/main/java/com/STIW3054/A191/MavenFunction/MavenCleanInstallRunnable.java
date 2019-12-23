@@ -28,7 +28,6 @@ public class MavenCleanInstallRunnable implements Runnable{
     @Override
     public void run() {
 
-
         String repoPath = RepoFolderPath.getPath()+UrlDetails.getRepoName(repoUrl);
         String logFilePath = RepoFolderPath.getPath().substring(1) + UrlDetails.getMatric(repoUrl) + ".log";
         String repoName = UrlDetails.getRepoName(repoUrl);
@@ -64,26 +63,11 @@ public class MavenCleanInstallRunnable implements Runnable{
                     boolean success = logFile.delete();
                     if (success) {
 
-                        synchronized (MavenCleanInstallRunnable.class) {
-                            latch.countDown();
-                            //Print error
-                            System.out.format("%-10s %-40s %-20s\n",
-                                    totalRepo - latch.getCount() + "/" + totalRepo,
-                                    repoName,
-                                    "Build Success !");
-                        }
-
+                        printResult(false,repoName,"Build Success !");
                     }
                 } else {
 
-                    synchronized (MavenCleanInstallRunnable.class) {
-                        latch.countDown();
-                        //Print error
-                        System.err.format("%-10s %-40s %-20s\n",
-                                totalRepo - latch.getCount() + "/" + totalRepo,
-                                repoName,
-                                "Build Failure !");
-                    }
+                    printResult(true,repoName,"Build Failure !");
                 }
 
             } catch (FileNotFoundException | MavenInvocationException e) {
@@ -104,14 +88,28 @@ public class MavenCleanInstallRunnable implements Runnable{
                 e.printStackTrace();
             }
 
-            synchronized (MavenCleanInstallRunnable.class) {
-                latch.countDown();
-                //Print error
+            printResult(true,repoName,"No pom.xml file !");
+        }
+    }
+
+    private void printResult(boolean Error, String RepoName,String Comment){
+
+        synchronized (MavenCleanInstallRunnable.class) {
+
+            if(Error){
                 System.err.format("%-10s %-40s %-20s\n",
-                        totalRepo - latch.getCount() + "/" + totalRepo,
-                        repoName,
-                        "No pom.xml file !");
+                        totalRepo - latch.getCount()+1 + "/" + totalRepo,
+                        RepoName,
+                        Comment);
             }
+            else {
+                System.out.format("%-10s %-40s %-20s\n",
+                        totalRepo - latch.getCount()+1 + "/" + totalRepo,
+                        RepoName,
+                        Comment);
+
+            }
+            latch.countDown();
         }
     }
 }

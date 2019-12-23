@@ -12,11 +12,40 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         //Get start time
         TimeElapsed.start();
 
+        System.out.println(JarPath.getPath(new File(RepoFolderPath.getPath())));
+
+
+        Runtime rt = Runtime.getRuntime();
+
+        Process proc = rt.exec("java -jar "+JarPath.getPath(new File(RepoFolderPath.getPath())),null,new File(RepoFolderPath.getPath()));
+
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+
+        // Read the output from the command
+        System.out.println("Here is the standard output of the command:\n");
+        String s = null;
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+
+        // Read any errors from the attempted command
+        System.out.println("Here is the standard error of the command (if any):\n");
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
+
+        System.out.println(proc.exitValue());
+
+
+
+
+/*
         // Set maven home for invoker used
         System.out.println("Checking Maven Home...");
         MavenHome.setHome();
@@ -77,7 +106,7 @@ public class Main {
         }
 
         System.out.println("Maven Build Completed !");
-
+*/
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
     }
