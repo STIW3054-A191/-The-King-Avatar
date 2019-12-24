@@ -3,6 +3,7 @@ package com.STIW3054.A191;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
 
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -12,40 +13,11 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) {
 
         //Get start time
         TimeElapsed.start();
 
-        System.out.println(JarPath.getPath(new File(RepoFolderPath.getPath())));
-
-
-        Runtime rt = Runtime.getRuntime();
-
-        Process proc = rt.exec("java -jar "+JarPath.getPath(new File(RepoFolderPath.getPath())),null,new File(RepoFolderPath.getPath()));
-
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-        BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-
-        // Read the output from the command
-        System.out.println("Here is the standard output of the command:\n");
-        String s = null;
-        while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
-        }
-
-        // Read any errors from the attempted command
-        System.out.println("Here is the standard error of the command (if any):\n");
-        while ((s = stdError.readLine()) != null) {
-            System.out.println(s);
-        }
-
-        System.out.println(proc.exitValue());
-
-
-
-
-/*
         // Set maven home for invoker used
         System.out.println("Checking Maven Home...");
         MavenHome.setHome();
@@ -53,7 +25,7 @@ public class Main {
         // Delete /target/repo/ folder
         System.out.println("\nChecking folder...\n/target/repo/");
         File file = new File(RepoFolderPath.getPath());
-        FileManager.deleteDir(file);
+//        FileManager.deleteDir(file);
 
         // Show total repositories
         System.out.println("\nCheck total Repositories...");
@@ -67,7 +39,7 @@ public class Main {
         System.out.format("%-35s: %-20s\n", "Total threads use for cloning ", Threads.availableLightThreads());
 
         // Cloning all repositories with threads
-        System.out.println("\nCloning Repositories...");
+ /*       System.out.println("\nCloning Repositories...");
         // Use CountDownLatch to check when all threads completed.
         CountDownLatch latchCloneRepo = new CountDownLatch(totalRepo);
         // Use ExecutorService to set max threads can run in same time. By using 3/4 from My PC total threads.
@@ -85,7 +57,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+*/
         System.out.println("Cloning Completed !");
 
         System.out.println("\nMaven Build Repositories...");
@@ -106,7 +78,7 @@ public class Main {
         }
 
         System.out.println("Maven Build Completed !");
-*/
+
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
     }

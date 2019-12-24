@@ -2,27 +2,24 @@ package com.STIW3054.A191;
 
 import java.io.File;
 
-class JarPath {
+public class JarPath {
 
-    static String getPath(File dir) {
+    public static String getPath(String PomPath) {
+
         String path = null;
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            if (children != null) {
-                for (String child : children) {
-                    File aChild = new File(dir, child);
-                    if (child.endsWith(".jar")) {
-                        path = aChild.getPath();
-                        break;
-                    } else if (aChild.isDirectory()) {
-                        path = getPath(aChild);
-                        if (path != null) {
-                            break;
-                        }
-                    }
+
+        File dir = new File(PomPath.replaceAll("pom.xml","target"));
+
+        String[] children = dir.list();
+        if (children != null) {
+            for (String child : children) {
+                File aChild = new File(dir, child);
+                if (!child.startsWith("original") && child.endsWith(".jar")) {
+                    path = aChild.getPath();
                 }
             }
         }
+
         return path;
     }
 }
