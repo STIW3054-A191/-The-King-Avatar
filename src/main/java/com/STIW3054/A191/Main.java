@@ -1,6 +1,7 @@
 package com.STIW3054.A191;
 
 import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
+import com.STIW3054.A191.CloneRepo.RepoFolderPath;
 import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
@@ -63,11 +64,11 @@ public class Main {
         System.out.println("Cloning Completed !");
 
         System.out.println("\nMaven Build Repositories...");
-
+        ArrayList<String> successRepoPomPath = new ArrayList<>();
         CountDownLatch latchMavenCleanInstall = new CountDownLatch(totalRepo);
         ExecutorService execMavenCleanInstall = Executors.newFixedThreadPool(Threads.availableHeavyThreads());
         for (String link : arrLink) {
-            Thread threadMavenCleanInstall = new Thread(new MavenCleanInstallRunnable(link, totalRepo, latchMavenCleanInstall));
+            Thread threadMavenCleanInstall = new Thread(new MavenCleanInstallRunnable(link, totalRepo, latchMavenCleanInstall, successRepoPomPath));
             execMavenCleanInstall.execute(threadMavenCleanInstall);
         }
         execMavenCleanInstall.shutdown();
@@ -80,6 +81,16 @@ public class Main {
         }
 
         System.out.println("Maven Build Completed !");
+
+        int i = 0;
+        for(String pompath:successRepoPomPath){
+            i++;
+            System.out.println(i+" "+pompath);
+
+            for(String path:ClassPath.getPath(new File(pompath.replaceAll("pom.xml","target")))){
+                System.out.println(" "+path);
+            }
+        }
 
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();

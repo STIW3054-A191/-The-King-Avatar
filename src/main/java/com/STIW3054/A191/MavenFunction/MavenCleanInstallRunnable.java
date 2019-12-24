@@ -1,6 +1,6 @@
 package com.STIW3054.A191.MavenFunction;
 
-import com.STIW3054.A191.RepoFolderPath;
+import com.STIW3054.A191.CloneRepo.RepoFolderPath;
 import com.STIW3054.A191.UrlDetails;
 import org.apache.maven.shared.invoker.*;
 
@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.FileHandler;
@@ -18,11 +19,13 @@ public class MavenCleanInstallRunnable implements Runnable{
     private String repoUrl;
     private int totalRepo;
     private CountDownLatch latch;
+    private ArrayList<String> successRepoPomPath;
 
-    public MavenCleanInstallRunnable(String RepoUrl, int TotalRepo, CountDownLatch Latch) {
+    public MavenCleanInstallRunnable(String RepoUrl, int TotalRepo, CountDownLatch Latch, ArrayList<String> SuccessRepoPomPath) {
         this.repoUrl = RepoUrl;
         this.totalRepo = TotalRepo;
         this.latch = Latch;
+        this.successRepoPomPath = SuccessRepoPomPath;
     }
 
     @Override
@@ -62,7 +65,7 @@ public class MavenCleanInstallRunnable implements Runnable{
                     File logFile = new File(logFilePath);
                     boolean success = logFile.delete();
                     if (success) {
-
+                        successRepoPomPath.add(pomPath);
                         printResult(false,repoName,"Build Success !");
                     }
                 } else {
