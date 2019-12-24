@@ -1,7 +1,6 @@
 package com.STIW3054.A191.MavenFunction;
 
 import com.STIW3054.A191.RepoFolderPath;
-import com.STIW3054.A191.RunJar;
 import com.STIW3054.A191.UrlDetails;
 import org.apache.maven.shared.invoker.*;
 
@@ -64,7 +63,6 @@ public class MavenCleanInstallRunnable implements Runnable{
                     boolean success = logFile.delete();
                     if (success) {
 
-RunJar.runJar(pomPath);
                         printResult(false,repoName,"Build Success !");
                     }
                 } else {

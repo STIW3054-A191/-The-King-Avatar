@@ -1,18 +1,20 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.CloneRepo;
 
+import com.STIW3054.A191.RepoFolderPath;
+import com.STIW3054.A191.UrlDetails;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 
-class CloneRepoRunnable implements Runnable {
+public class CloneRepoRunnable implements Runnable {
 
     private String repoUrl;
     private int totalRepo;
     private CountDownLatch latch;
 
-    CloneRepoRunnable(String RepoUrl, int TotalRepo, CountDownLatch Latch) {
+    public CloneRepoRunnable(String RepoUrl, int TotalRepo, CountDownLatch Latch) {
         this.repoUrl = RepoUrl;
         this.totalRepo = TotalRepo;
         this.latch = Latch;

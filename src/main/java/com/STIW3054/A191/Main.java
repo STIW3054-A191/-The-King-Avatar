@@ -1,5 +1,7 @@
 package com.STIW3054.A191;
 
+import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
+import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
 
@@ -25,7 +27,7 @@ public class Main {
         // Delete /target/repo/ folder
         System.out.println("\nChecking folder...\n/target/repo/");
         File file = new File(RepoFolderPath.getPath());
-//        FileManager.deleteDir(file);
+        FileManager.deleteDir(file);
 
         // Show total repositories
         System.out.println("\nCheck total Repositories...");
@@ -39,7 +41,7 @@ public class Main {
         System.out.format("%-35s: %-20s\n", "Total threads use for cloning ", Threads.availableLightThreads());
 
         // Cloning all repositories with threads
- /*       System.out.println("\nCloning Repositories...");
+        System.out.println("\nCloning Repositories...");
         // Use CountDownLatch to check when all threads completed.
         CountDownLatch latchCloneRepo = new CountDownLatch(totalRepo);
         // Use ExecutorService to set max threads can run in same time. By using 3/4 from My PC total threads.
@@ -57,7 +59,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-*/
+
         System.out.println("Cloning Completed !");
 
         System.out.println("\nMaven Build Repositories...");
