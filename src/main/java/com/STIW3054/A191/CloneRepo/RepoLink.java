@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.CloneRepo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -7,9 +7,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-class RepoLink {
+public class RepoLink {
 
-    static ArrayList<String> getLink() {
+    public static ArrayList<String> getLink() {
         // Get assignment 1 link
         ArrayList<String> arrayLink = new ArrayList<>();
         try {

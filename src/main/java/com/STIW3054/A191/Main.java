@@ -1,7 +1,10 @@
 package com.STIW3054.A191;
 
+import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
+import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -76,7 +79,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("Cloning Completed !");
+        System.out.println("Maven Build Completed !");
 
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
