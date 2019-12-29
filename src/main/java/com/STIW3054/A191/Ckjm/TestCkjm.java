@@ -11,10 +11,10 @@ public class TestCkjm {
         ArrayList<String> classPathArr = ClassPath.getPath(PomPath);
 
         if(classPathArr.isEmpty()){
-            System.out.println("  No Class File");
+            System.out.println("   No Class File");
         }else {
             for (String classPath : classPathArr ) {
-                System.out.println("  " + testClass(classPath));
+                System.out.println("   " + testClass(classPath));
             }
         }
     }
