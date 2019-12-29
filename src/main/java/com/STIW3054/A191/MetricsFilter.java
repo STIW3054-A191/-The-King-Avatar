@@ -48,5 +48,23 @@ public class MetricsFilter {
             visitor.start();
             visitor.end();
         }
-    }}
+    }
+
+    /**
+     * The interface for other Java based applications.
+     * Implement the outputhandler to catch the results
+     *
+     * @param files Class files to be analyzed
+     * @param outputHandler An implementation of the CkjmOutputHandler interface
+     */
+    public static void runMetrics(String[] files, CkjmOutputHandler outputHandler) {
+        ClassMetricsContainer cm = new ClassMetricsContainer();
+
+        for (int i = 0; i < files.length; i++)
+            processClass(cm, files[i]);
+        cm.printMetrics(outputHandler);
+    }
+
+
+}
 
