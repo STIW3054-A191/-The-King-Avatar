@@ -5,5 +5,7 @@ import java.io.PrintStream;
 public class PrintPlainResults implements CkjmOutputHandler {
     private PrintStream p;
 
+    public PrintPlainResults (PrintStream p) {
 
+    }
 }
