@@ -14,10 +14,17 @@ class PomPath {
                     if (child.equals("pom.xml")) {
                         path = aChild.getPath();
                         break;
-                    } else if (aChild.isDirectory()) {
-                        path = getPath(aChild);
-                        if (path != null) {
-                            break;
+                    }
+                }
+
+                if (path == null) {
+                    for (String child : children) {
+                        File aChild = new File(dir, child);
+                        if (aChild.isDirectory()) {
+                            path = getPath(aChild);
+                            if (path != null) {
+                                break;
+                            }
                         }
                     }
                 }

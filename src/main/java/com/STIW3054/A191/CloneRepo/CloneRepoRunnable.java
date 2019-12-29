@@ -1,6 +1,5 @@
 package com.STIW3054.A191.CloneRepo;
 
-import com.STIW3054.A191.RepoFolderPath;
 import com.STIW3054.A191.UrlDetails;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
