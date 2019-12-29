@@ -8,4 +8,8 @@ public class PrintPlainResults implements CkjmOutputHandler {
     public PrintPlainResults (PrintStream p) {
         this.p = p;
     }
+
+    public void handleClass(String name, ClassMetrics c) {
+        p.println(name + " " + c.toString());
+    }
 }
