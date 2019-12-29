@@ -65,6 +65,39 @@ public class MetricsFilter {
         cm.printMetrics(outputHandler);
     }
 
+    /** The filter's main body.
+     * Process command line arguments and the standard input.
+     */
+    public static void main(String[] argv) {
+        int argp = 0;
 
+        if (argv.length > argp && argv[argp].equals("-s")) {
+            includeJdk = true;
+            argp++;
+        }
+        if (argv.length > argp && argv[argp].equals("-p")) {
+            onlyPublic = true;
+            argp++;
+        }
+        ClassMetricsContainer cm = new ClassMetricsContainer();
+
+        if (argv.length == argp) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            try {
+                String s;
+                while ((s = in.readLine()) != null)
+                    processClass(cm, s);
+            } catch (Exception e) {
+                System.err.println("Error reading line: " + e);
+                System.exit(1);
+            }
+        }
+
+        for (int i = argp; i < argv.length; i++)
+            processClass(cm, argv[i]);
+
+        CkjmOutputHandler handler = new PrintPlainResults(System.out);
+        cm.printMetrics(handler);
+    }
 }
 
