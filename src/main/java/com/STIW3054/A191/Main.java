@@ -1,13 +1,13 @@
 package com.STIW3054.A191;
 
+import com.STIW3054.A191.Ckjm.TestCkjm;
 import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
 import com.STIW3054.A191.CloneRepo.RepoFolderPath;
 import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
 
-
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -86,10 +86,8 @@ public class Main {
         for(String pompath:successRepoPomPath){
             i++;
             System.out.println(i+" "+pompath);
+            TestCkjm.test(pompath);
 
-            for(String path:ClassPath.getPath(new File(pompath.replaceAll("pom.xml","target")))){
-                System.out.println(" "+path);
-            }
         }
 
         //Get end time and time elapsed

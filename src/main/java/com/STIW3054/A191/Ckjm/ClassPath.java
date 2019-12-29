@@ -1,11 +1,15 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.Ckjm;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class ClassPath {
+class ClassPath {
 
-    static ArrayList<String> getPath(File dir) {
+    static ArrayList<String> getPath(String PomPath){
+        return findClass(new File(PomPath.replaceAll("pom.xml", "target")));
+    }
+
+    private static ArrayList<String> findClass(File dir) {
 
         ArrayList<String> path = new ArrayList<>();
 
@@ -17,7 +21,7 @@ public class ClassPath {
                     if (child.endsWith(".class")) {
                         path.add(aChild.getPath());
                     } else if (aChild.isDirectory()) {
-                         path.addAll(getPath(aChild));
+                         path.addAll(findClass(aChild));
                     }
                 }
             }

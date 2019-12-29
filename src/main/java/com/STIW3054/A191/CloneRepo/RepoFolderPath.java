@@ -6,7 +6,7 @@ public class RepoFolderPath {
 
     public static String getPath(){
         URL location = RepoFolderPath.class.getProtectionDomain().getCodeSource().getLocation();
-        return location.getFile().replace("classes/","repo/");
+        return location.getFile().substring(1).replace("classes/","repo/");
     }
 
 }

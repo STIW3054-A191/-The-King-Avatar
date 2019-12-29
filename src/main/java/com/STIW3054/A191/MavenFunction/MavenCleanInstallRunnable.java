@@ -32,7 +32,7 @@ public class MavenCleanInstallRunnable implements Runnable{
     public void run() {
 
         String repoPath = RepoFolderPath.getPath()+UrlDetails.getRepoName(repoUrl);
-        String logFilePath = RepoFolderPath.getPath().substring(1) + UrlDetails.getMatric(repoUrl) + ".log";
+        String logFilePath = RepoFolderPath.getPath() + UrlDetails.getMatric(repoUrl) + ".log";
         String repoName = UrlDetails.getRepoName(repoUrl);
 
         String pomPath = PomPath.getPath(new File(repoPath));
