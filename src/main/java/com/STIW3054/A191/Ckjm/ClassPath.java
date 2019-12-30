@@ -1,12 +1,14 @@
 package com.STIW3054.A191.Ckjm;
 
+import com.STIW3054.A191.CloneRepo.RepoFolderPath;
+
 import java.io.File;
 import java.util.ArrayList;
 
 class ClassPath {
 
-    static ArrayList<String> getPath(String PomPath){
-        return findClass(new File(PomPath.replaceAll("pom.xml", "target")));
+    static ArrayList<String> getPath(String RepoName){
+        return findClass(new File(RepoFolderPath.getPath()+RepoName));
     }
 
     private static ArrayList<String> findClass(File dir) {
