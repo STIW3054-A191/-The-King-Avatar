@@ -2,6 +2,7 @@ package com.STIW3054.A191.MavenFunction;
 
 import com.STIW3054.A191.CloneRepo.RepoFolderPath;
 import com.STIW3054.A191.UrlDetails;
+import com.STIW3054.A191.OutputResult;
 import org.apache.maven.shared.invoker.*;
 
 import java.io.File;
@@ -19,13 +20,13 @@ public class MavenCleanInstallRunnable implements Runnable{
     private String repoUrl;
     private int totalRepo;
     private CountDownLatch latch;
-    private ArrayList<String> successRepoPomPath;
+    private ArrayList<String[]> buildSuccessRepo;
 
-    public MavenCleanInstallRunnable(String RepoUrl, int TotalRepo, CountDownLatch Latch, ArrayList<String> SuccessRepoPomPath) {
+    public MavenCleanInstallRunnable(String RepoUrl, int TotalRepo, CountDownLatch Latch, ArrayList<String[]> BuildSuccessRepo) {
         this.repoUrl = RepoUrl;
         this.totalRepo = TotalRepo;
         this.latch = Latch;
-        this.successRepoPomPath = SuccessRepoPomPath;
+        this.buildSuccessRepo = BuildSuccessRepo;
     }
 
     @Override
@@ -65,12 +66,11 @@ public class MavenCleanInstallRunnable implements Runnable{
                     File logFile = new File(logFilePath);
                     boolean success = logFile.delete();
                     if (success) {
-                        successRepoPomPath.add(pomPath);
-                        printResult(false,repoName,"Build Success !");
+                        buildSuccessRepo.add(new String[]{pomPath,repoName,UrlDetails.getMatric(repoUrl)});
+                        OutputResult.print(false,repoName,"Build Success !", latch, totalRepo);
                     }
                 } else {
-
-                    printResult(true,repoName,"Build Failure !");
+                    OutputResult.print(true,repoName,"Build Failure !", latch, totalRepo);
                 }
 
             } catch (FileNotFoundException | MavenInvocationException e) {
@@ -85,34 +85,13 @@ public class MavenCleanInstallRunnable implements Runnable{
                 Logger logger = Logger.getLogger(repoName);
                 logger.addHandler(fileHandler);
                 logger.setUseParentHandlers(false);
-                logger.warning(repoName + " no pom.xml file.");
+                logger.warning(repoName + " No pom.xml file !");
                 fileHandler.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            printResult(true,repoName,"No pom.xml file !");
-        }
-    }
-
-    private void printResult(boolean Error, String RepoName,String Comment){
-
-        synchronized (MavenCleanInstallRunnable.class) {
-
-            if(Error){
-                System.err.format("%-10s %-40s %-20s\n",
-                        totalRepo - latch.getCount()+1 + "/" + totalRepo,
-                        RepoName,
-                        Comment);
-            }
-            else {
-                System.out.format("%-10s %-40s %-20s\n",
-                        totalRepo - latch.getCount()+1 + "/" + totalRepo,
-                        RepoName,
-                        Comment);
-
-            }
-            latch.countDown();
+            OutputResult.print(true,repoName,"No pom.xml file !", latch, totalRepo);
         }
     }
 }

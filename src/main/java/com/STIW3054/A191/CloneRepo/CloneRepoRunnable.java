@@ -1,5 +1,6 @@
 package com.STIW3054.A191.CloneRepo;
 
+import com.STIW3054.A191.OutputResult;
 import com.STIW3054.A191.UrlDetails;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -31,13 +32,6 @@ public class CloneRepoRunnable implements Runnable {
             e.printStackTrace();
         }
 
-        synchronized (CloneRepoRunnable.class) {
-            System.out.format("%-10s %-40s %-20s\n",
-                    totalRepo - latch.getCount()+1 + "/" + totalRepo,
-                    UrlDetails.getRepoName(repoUrl),
-                    "Cloning Completed !");
-
-            latch.countDown();
-        }
+        OutputResult.print(false,UrlDetails.getRepoName(repoUrl),"Cloning Completed !", latch, totalRepo);
     }
 }
