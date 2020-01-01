@@ -1,8 +1,7 @@
 package com.STIW3054.A191.CloneRepo;
 
-import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
-import com.STIW3054.A191.OutputResult;
-import com.STIW3054.A191.UrlDetails;
+import com.STIW3054.A191.OutputFolder.OutputFolderPath;
+import com.STIW3054.A191.Output.OutputResult;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
@@ -27,7 +26,7 @@ public class CloneRepoRunnable implements Runnable {
         try {
             Git.cloneRepository()
                     .setURI(repoUrl + ".git")
-                    .setDirectory(new File(RepoFolderPath.getPath() + UrlDetails.getRepoName(repoUrl)))
+                    .setDirectory(new File(OutputFolderPath.getRepoFolderPath() + UrlDetails.getRepoName(repoUrl)))
                     .call();
         } catch (GitAPIException e) {
             e.printStackTrace();

@@ -1,26 +1,26 @@
 package com.STIW3054.A191.Ckjm;
 
-import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
+import com.STIW3054.A191.Output.OutputLogFile;
 import com.STIW3054.A191.ExcelFunction.SaveCkjmToExcel;
-import com.STIW3054.A191.OutputResult;
+import com.STIW3054.A191.OutputFolder.OutputFolderPath;
+import com.STIW3054.A191.Output.OutputResult;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 public class TestCkjmRunnable implements Runnable {
     private String repoName,matricNo;
     private CountDownLatch latch;
     private int totalLatch;
+    private ArrayList<String> unknownMatricNo;
 
-    public TestCkjmRunnable(String RepoName, String MatricNo, CountDownLatch Latch, int TotalLatch){
+    public TestCkjmRunnable(String RepoName, String MatricNo, CountDownLatch Latch, int TotalLatch, ArrayList<String> UnknownMatricNo){
         this.repoName = RepoName;
         this.matricNo = MatricNo;
         this.latch = Latch;
         this.totalLatch = TotalLatch;
+        this.unknownMatricNo = UnknownMatricNo;
     }
 
     @Override
@@ -28,38 +28,16 @@ public class TestCkjmRunnable implements Runnable {
 
         ArrayList<String> classPathArr = ClassPath.getPath(repoName);
 
-        if(classPathArr.isEmpty()){
+        if(!classPathArr.isEmpty()){
 
-            String logFilePath = RepoFolderPath.getPath() + matricNo + ".log";
-
-            //Save error to log
-            try {
-                FileHandler fileHandler = new FileHandler(logFilePath, true);
-                fileHandler.setFormatter(new SimpleFormatter());
-                Logger logger = Logger.getLogger(repoName);
-                logger.addHandler(fileHandler);
-                logger.setUseParentHandlers(false);
-                logger.warning(repoName + " No class file !");
-                fileHandler.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            OutputResult.print(true,repoName,"No class file !", latch, totalLatch);
-
-        }else {
-
-            String txtFilePath = RepoFolderPath.getPath() + matricNo + ".txt";
-
-            try (FileWriter writer = new FileWriter(txtFilePath, true);
-                 BufferedWriter bw = new BufferedWriter(writer)) {
+            try (FileWriter writer = new FileWriter(OutputFolderPath.getTxtFolderPath() + matricNo + ".txt", true)) {
 
                 int WMC = 0, DIT = 0, NOC = 0, CBO = 0, RFC = 0, LCOM = 0;
 
                 for (String classPath : classPathArr ) {
                     String result = testClass(classPath);
 
-                    bw.write(result+"\n");
+                    writer.write(result+"\n");
 
                     if(!result.split(" ")[1].equals("null")) {
                         WMC += Integer.parseInt(result.split(" ")[1]);
@@ -69,21 +47,23 @@ public class TestCkjmRunnable implements Runnable {
                         RFC += Integer.parseInt(result.split(" ")[5]);
                         LCOM += Integer.parseInt(result.split(" ")[6]);
                     }
-
                 }
 
                 synchronized (TestCkjmRunnable.class) {
-                    SaveCkjmToExcel.addData(matricNo, WMC, DIT, NOC, CBO, RFC, LCOM);
+                    SaveCkjmToExcel.addData(matricNo, unknownMatricNo, WMC, DIT, NOC, CBO, RFC, LCOM);
                 }
-                bw.write(WMC+" "+DIT+" "+NOC+" "+CBO+" "+RFC+" "+LCOM+"\n");
+                writer.write("Total : "+WMC+" "+DIT+" "+NOC+" "+CBO+" "+RFC+" "+LCOM+"\n");
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             OutputResult.print(false,repoName,"Test CKJM Completed !", latch, totalLatch);
-        }
 
+        }else {
+            OutputLogFile.save(matricNo, repoName, "No class file !");
+            OutputResult.print(true,repoName,"No class file !", latch, totalLatch);
+        }
     }
 
     private static String testClass(String ClassPath){

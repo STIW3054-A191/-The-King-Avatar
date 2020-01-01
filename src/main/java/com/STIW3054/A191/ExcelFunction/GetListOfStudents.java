@@ -26,7 +26,7 @@ public class GetListOfStudents implements ExcelFunctionData {
             Elements elementsList = doc.select("table").select("tr");
 
             if (elementsList.size() == 0) {
-                System.out.println("\u001B[31mUnable to receive data from the URL !\u001B[0m");
+                System.out.println("Unable to receive data from the URL !");
                 System.exit(0);
             }else {
                 for (int i = 1; i < elementsList.size(); i++) {
@@ -44,7 +44,7 @@ public class GetListOfStudents implements ExcelFunctionData {
             }
 
         }catch (Exception e) {
-            System.out.println("\u001B[31mUnable to receive data from the URL !\u001B[0m");
+            System.out.println("Unable to receive data from the URL !");
             System.exit(0);
         }
     }

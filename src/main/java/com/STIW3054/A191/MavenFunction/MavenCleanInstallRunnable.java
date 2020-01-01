@@ -1,13 +1,12 @@
 package com.STIW3054.A191.MavenFunction;
 
 import com.STIW3054.A191.Output.OutputLogFile;
-import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
-import com.STIW3054.A191.UrlDetails;
-import com.STIW3054.A191.OutputResult;
+import com.STIW3054.A191.OutputFolder.OutputFolderPath;
+import com.STIW3054.A191.CloneRepo.UrlDetails;
+import com.STIW3054.A191.Output.OutputResult;
 import org.apache.maven.shared.invoker.*;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
@@ -29,7 +28,7 @@ public class MavenCleanInstallRunnable implements Runnable{
     @Override
     public void run() {
 
-        String repoPath = RepoFolderPath.getPath()+UrlDetails.getRepoName(repoUrl);
+        String repoPath = OutputFolderPath.getRepoFolderPath()+UrlDetails.getRepoName(repoUrl);
         String repoName = UrlDetails.getRepoName(repoUrl);
 
         String pomPath = PomPath.getPath(new File(repoPath));
@@ -47,19 +46,9 @@ public class MavenCleanInstallRunnable implements Runnable{
                 StringBuilder output = new StringBuilder();
                 output.append("\n");
 
-                invoker.setOutputHandler(new InvocationOutputHandler() {
-                    @Override
-                    public void consumeLine(String s) throws IOException {
-                        output.append(s).append("\n");
-                    }
-                });
+                invoker.setOutputHandler(s -> output.append(s).append("\n"));
 
-                invoker.setErrorHandler(new InvocationOutputHandler() {
-                    @Override
-                    public void consumeLine(String s) throws IOException {
-                        output.append(s).append("\n");
-                    }
-                });
+                invoker.setErrorHandler(s -> output.append(s).append("\n"));
 
                 final InvocationResult invocationResult = invoker.execute(request);
 

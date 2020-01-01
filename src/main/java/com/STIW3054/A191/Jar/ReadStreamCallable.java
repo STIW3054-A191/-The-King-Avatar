@@ -1,31 +1,37 @@
 package com.STIW3054.A191.Jar;
 
 import com.STIW3054.A191.Output.OutputLogFile;
+import com.STIW3054.A191.OutputFolder.OutputFolderPath;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.Callable;
 
+public class ReadStreamCallable implements Callable<String> {
 
-public class ReadStreamRunnable implements Runnable {
     private String matricNo, repoName;
     private InputStream inputStream, errorStream;
 
-    public ReadStreamRunnable(String MatricNo, String RepoName, InputStream InputStream, InputStream ErrorStream) {
+    ReadStreamCallable(String MatricNo, String RepoName, InputStream InputStream, InputStream ErrorStream) {
         this.matricNo = MatricNo;
         this.repoName = RepoName;
         this.inputStream = InputStream;
         this.errorStream = ErrorStream;
     }
 
-    public void run () {
+    @Override
+    public String call() {
+
         try {
             // Read the output
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(inputStream));
             String output;
-            System.out.println(matricNo+"Here is the standard output of the command:");
             while ((output = stdInput.readLine()) != null) {
-                System.out.println(output);
+                try (FileWriter writer = new FileWriter(OutputFolderPath.getOutFolderPath() + matricNo +".out", true)) {
+                    writer.write(output+"\n");
+                }
             }
 
             // Read errors Message
@@ -38,14 +44,13 @@ public class ReadStreamRunnable implements Runnable {
             if(!errorMessage.toString().equals("")){
                 //Save error to log
                 OutputLogFile.save(matricNo, repoName, errorMessage.toString());
-
-                System.out.println(matricNo+"Here is the standard error of the command (if any):");
-                System.err.println(errorMessage.toString());
+                return "error";
             }
-
 
         } catch (Exception ex) {
             ex.printStackTrace ();
         }
+
+        return "complete";
     }
 }

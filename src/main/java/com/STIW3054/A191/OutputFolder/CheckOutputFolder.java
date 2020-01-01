@@ -1,4 +1,4 @@
-package com.STIW3054.A191.OutputFolderPath;
+package com.STIW3054.A191.OutputFolder;
 
 import java.io.File;
 
@@ -6,15 +6,15 @@ public class CheckOutputFolder {
 
     public static void check(){
 
-        File repoFolder = new File(RepoFolderPath.getPath());
+        File repoFolder = new File(OutputFolderPath.getRepoFolderPath());
         if(repoFolder.exists()){
             deleteDir(repoFolder);
         }
 
         makeDir(repoFolder);
-        makeDir(new File(LogFolderPath.getPath()));
-        makeDir(new File(OutFolderPath.getPath()));
-        makeDir(new File(TxtFolderPath.getPath()));
+        makeDir(new File(OutputFolderPath.getLogFolderPath()));
+        makeDir(new File(OutputFolderPath.getOutFolderPath()));
+        makeDir(new File(OutputFolderPath.getTxtFolderPath()));
 
     }
 

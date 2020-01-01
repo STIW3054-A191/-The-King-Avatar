@@ -1,4 +1,4 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.Output;
 
 import java.util.concurrent.CountDownLatch;
 
