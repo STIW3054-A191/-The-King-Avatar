@@ -1,5 +1,6 @@
 package com.STIW3054.A191.CloneRepo;
 
+import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
 import com.STIW3054.A191.OutputResult;
 import com.STIW3054.A191.UrlDetails;
 import org.eclipse.jgit.api.Git;

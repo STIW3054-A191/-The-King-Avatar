@@ -1,6 +1,6 @@
 package com.STIW3054.A191.Ckjm;
 
-import com.STIW3054.A191.CloneRepo.RepoFolderPath;
+import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
 
 import java.io.File;
 import java.util.ArrayList;

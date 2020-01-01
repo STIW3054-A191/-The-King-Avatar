@@ -19,12 +19,19 @@ public class RepoLink {
 
             for (Element array : elements) {
                 String elementLink = array.attr("href");
-
+                String link;
                 // Test .git link
-                if (elementLink.endsWith(".git")) {
-                    arrayLink.add(elementLink.substring(0, elementLink.length() - 4));
-                } else {
-                    arrayLink.add(elementLink);
+                if(!elementLink.startsWith("http://cwiki")) {
+
+                    if (elementLink.endsWith(".git")) {
+                        link = elementLink.substring(0, elementLink.length() - 4);
+                    } else {
+                        link = elementLink;
+                    }
+
+                    if (!arrayLink.contains(link)) {
+                        arrayLink.add(link);
+                    }
                 }
             }
         } catch (IOException e) {

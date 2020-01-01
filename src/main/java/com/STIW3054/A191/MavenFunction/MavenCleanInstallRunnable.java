@@ -1,20 +1,17 @@
 package com.STIW3054.A191.MavenFunction;
 
-import com.STIW3054.A191.CloneRepo.RepoFolderPath;
+import com.STIW3054.A191.Output.OutputLogFile;
+import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
 import com.STIW3054.A191.UrlDetails;
 import com.STIW3054.A191.OutputResult;
 import org.apache.maven.shared.invoker.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 public class MavenCleanInstallRunnable implements Runnable{
     private String repoUrl;
@@ -33,7 +30,6 @@ public class MavenCleanInstallRunnable implements Runnable{
     public void run() {
 
         String repoPath = RepoFolderPath.getPath()+UrlDetails.getRepoName(repoUrl);
-        String logFilePath = RepoFolderPath.getPath() + UrlDetails.getMatric(repoUrl) + ".log";
         String repoName = UrlDetails.getRepoName(repoUrl);
 
         String pomPath = PomPath.getPath(new File(repoPath));
@@ -44,53 +40,45 @@ public class MavenCleanInstallRunnable implements Runnable{
             request.setGoals(Collections.singletonList("clean install"));
 
             try {
-                // Store current System.out before assigning a new value
-                PrintStream console = System.out;
-                // Assign log to output stream
-                PrintStream log = new PrintStream(new File(logFilePath));
-                System.setOut(log);
 
                 Invoker invoker = new DefaultInvoker();
                 invoker.setLogger(new PrintStreamLogger(System.out, InvokerLogger.ERROR));
-                invoker.setOutputHandler(System.out::println);
-                invoker.setErrorHandler(System.out::println);
+
+                StringBuilder output = new StringBuilder();
+                output.append("\n");
+
+                invoker.setOutputHandler(new InvocationOutputHandler() {
+                    @Override
+                    public void consumeLine(String s) throws IOException {
+                        output.append(s).append("\n");
+                    }
+                });
+
+                invoker.setErrorHandler(new InvocationOutputHandler() {
+                    @Override
+                    public void consumeLine(String s) throws IOException {
+                        output.append(s).append("\n");
+                    }
+                });
 
                 final InvocationResult invocationResult = invoker.execute(request);
 
-                // Assign log to output stream
-                System.setOut(console);
-                // Close log
-                log.close();
-
                 if (invocationResult.getExitCode() == 0) {
-                    File logFile = new File(logFilePath);
-                    boolean success = logFile.delete();
-                    if (success) {
-                        buildSuccessRepo.add(new String[]{pomPath,repoName,UrlDetails.getMatric(repoUrl)});
-                        OutputResult.print(false,repoName,"Build Success !", latch, totalRepo);
-                    }
+                    buildSuccessRepo.add(new String[]{pomPath,repoName,UrlDetails.getMatric(repoUrl)});
+                    OutputResult.print(false,repoName,"Build Success !", latch, totalRepo);
                 } else {
+                    //Save error to log
+                    OutputLogFile.save(UrlDetails.getMatric(repoUrl),repoName,output.toString());
                     OutputResult.print(true,repoName,"Build Failure !", latch, totalRepo);
                 }
 
-            } catch (FileNotFoundException | MavenInvocationException e) {
+            } catch (MavenInvocationException e) {
                 e.printStackTrace();
             }
+
         }else {
-
             //Save error to log
-            try {
-                FileHandler fileHandler = new FileHandler(logFilePath, true);
-                fileHandler.setFormatter(new SimpleFormatter());
-                Logger logger = Logger.getLogger(repoName);
-                logger.addHandler(fileHandler);
-                logger.setUseParentHandlers(false);
-                logger.warning(repoName + " No pom.xml file !");
-                fileHandler.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            OutputLogFile.save(UrlDetails.getMatric(repoUrl),repoName,repoName + " No pom.xml file !");
             OutputResult.print(true,repoName,"No pom.xml file !", latch, totalRepo);
         }
     }

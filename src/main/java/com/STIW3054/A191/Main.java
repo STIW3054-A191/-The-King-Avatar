@@ -2,11 +2,12 @@ package com.STIW3054.A191;
 
 import com.STIW3054.A191.Ckjm.TestCkjmRunnable;
 import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
-import com.STIW3054.A191.CloneRepo.RepoFolderPath;
-import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.ExcelFunction.CreateExcel;
 import com.STIW3054.A191.ExcelFunction.GetListOfStudents;
-import com.STIW3054.A191.ExcelFunction.SaveCkjmToExcel;
+import com.STIW3054.A191.OutputFolderPath.CheckOutputFolder;
+import com.STIW3054.A191.OutputFolderPath.RepoFolderPath;
+import com.STIW3054.A191.CloneRepo.RepoLink;
+import com.STIW3054.A191.Jar.RunJar;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
 
@@ -34,9 +35,8 @@ public class Main {
         GetListOfStudents.get();
 
         // Delete /target/repo/ folder
-        System.out.println("\nChecking folder...\n/target/repo/");
-        File file = new File(RepoFolderPath.getPath());
-        FileManager.deleteDir(file);
+        System.out.println("\nChecking folder...\n/target/output/");
+        CheckOutputFolder.check();
 
         // Show total repositories
         System.out.println("\nCheck total Repositories...");
@@ -88,6 +88,21 @@ public class Main {
             e.printStackTrace();
         }
         System.out.println("Maven Build Completed !");
+
+        CountDownLatch latchRunJar = new CountDownLatch(buildSuccessRepo.size());
+        for(String[] repoDetails : buildSuccessRepo){
+            Thread test = new Thread(()->{
+                RunJar.runJar(repoDetails[0], repoDetails[1], repoDetails[2]);
+                latchRunJar.countDown();
+            });
+            test.start();
+        }
+
+        try {
+            latchRunJar.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         System.out.println("\nTest CKJM...");
