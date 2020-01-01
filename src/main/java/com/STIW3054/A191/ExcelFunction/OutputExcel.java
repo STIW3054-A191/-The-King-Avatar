@@ -4,7 +4,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 class OutputExcel implements ExcelFunctionData {
@@ -26,10 +25,6 @@ class OutputExcel implements ExcelFunctionData {
 
             } catch (Exception e) {
                 System.out.println("Failed to create/save the Excel file !");
-                System.out.println("Press Enter to retry...");
-                try {
-                    System.in.read();
-                } catch (IOException ignored) { }
             }
         }
     }

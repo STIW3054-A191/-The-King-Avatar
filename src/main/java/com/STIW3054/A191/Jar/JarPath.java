@@ -1,10 +1,10 @@
-package com.STIW3054.A191;
+package com.STIW3054.A191.Jar;
 
 import java.io.File;
 
-public class JarPath {
+class JarPath {
 
-    public static String getPath(String PomPath) {
+    static String getPath(String PomPath) {
 
         String path = null;
 

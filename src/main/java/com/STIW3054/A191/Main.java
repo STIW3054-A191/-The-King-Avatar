@@ -2,15 +2,14 @@ package com.STIW3054.A191;
 
 import com.STIW3054.A191.Ckjm.TestCkjmRunnable;
 import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
-import com.STIW3054.A191.CloneRepo.RepoFolderPath;
-import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.ExcelFunction.CreateExcel;
 import com.STIW3054.A191.ExcelFunction.GetListOfStudents;
-import com.STIW3054.A191.ExcelFunction.SaveCkjmToExcel;
+import com.STIW3054.A191.CloneRepo.RepoLink;
+import com.STIW3054.A191.Jar.RunJarRunnable;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
+import com.STIW3054.A191.OutputFolder.CheckOutputFolder;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -28,15 +27,14 @@ public class Main {
         System.out.println("Checking Maven Home...");
         MavenHome.setHome();
 
+        // Delete /target/repo/ folder
+        System.out.println("\nChecking folder...\n/target/output/");
+        CheckOutputFolder.check();
+
         //Create Excel file and get List Of Students
         System.out.println("\nCreate Excel file and get List Of Students...");
         CreateExcel.create();
         GetListOfStudents.get();
-
-        // Delete /target/repo/ folder
-        System.out.println("\nChecking folder...\n/target/repo/");
-        File file = new File(RepoFolderPath.getPath());
-        FileManager.deleteDir(file);
 
         // Show total repositories
         System.out.println("\nCheck total Repositories...");
@@ -90,11 +88,29 @@ public class Main {
         System.out.println("Maven Build Completed !");
 
 
+        System.out.println("\nRun Jar...");
+        CountDownLatch latchRunJar = new CountDownLatch(buildSuccessRepo.size());
+        ExecutorService execRunJar = Executors.newFixedThreadPool(Threads.availableLightThreads());
+        for(String[] repoDetails : buildSuccessRepo){
+            Thread threadRunJar = new Thread(new RunJarRunnable(repoDetails[0], repoDetails[1], repoDetails[2],latchRunJar,buildSuccessRepo.size()));
+            execRunJar.execute(threadRunJar);
+        }
+        execRunJar.shutdown();
+
+        try {
+            latchRunJar.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Run Jar Completed !");
+
+
         System.out.println("\nTest CKJM...");
+        ArrayList<String> unknownMatricNo = new ArrayList<>();
         CountDownLatch latchTestCkjm = new CountDownLatch(buildSuccessRepo.size());
         ExecutorService execTestCkjm = Executors.newFixedThreadPool(Threads.availableLightThreads());
         for(String[] repoDetails : buildSuccessRepo){
-            Thread threadTestCkjm = new Thread(new TestCkjmRunnable(repoDetails[1], repoDetails[2], latchTestCkjm, buildSuccessRepo.size()));
+            Thread threadTestCkjm = new Thread(new TestCkjmRunnable(repoDetails[1], repoDetails[2], latchTestCkjm, buildSuccessRepo.size(), unknownMatricNo));
             execTestCkjm.execute(threadTestCkjm);
         }
         execTestCkjm.shutdown();
@@ -105,6 +121,12 @@ public class Main {
             e.printStackTrace();
         }
         System.out.println("Test CKJM Completed !");
+
+        if(unknownMatricNo.size()>0){
+            for(String matric : unknownMatricNo){
+                System.err.println("Matric No "+matric+" not found in list of students!");
+            }
+        }
 
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();

@@ -5,10 +5,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 public class SaveCkjmToExcel implements ExcelFunctionData {
 
-    public static void addData(String MatricNo, int WMC, int DIT, int NOC, int CBO, int RFC, int LCOM){
+    public static void addData(String MatricNo, ArrayList<String> UnknownMatricNo, int WMC, int DIT, int NOC, int CBO, int RFC, int LCOM){
 
         try {
             FileInputStream file = new FileInputStream(fileName);
@@ -39,7 +40,7 @@ public class SaveCkjmToExcel implements ExcelFunctionData {
             }
 
             if(!foundInList){
-                System.err.println(MatricNo);
+                UnknownMatricNo.add(MatricNo);
             }
 
             //Save the Excel file
