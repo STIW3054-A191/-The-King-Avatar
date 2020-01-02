@@ -22,15 +22,15 @@ public class ReadStreamCallable implements Callable<String> {
     }
 
     @Override
-    public String call() {
+    public String call() throws InterruptedException  {
 
         try {
             // Read the output
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(inputStream));
             String output;
             while ((output = stdInput.readLine()) != null) {
-                try (FileWriter writer = new FileWriter(OutputFolderPath.getOutFolderPath() + matricNo +".out", true)) {
-                    writer.write(output+"\n");
+                try ( FileWriter writer = new FileWriter(OutputFolderPath.getOutFolderPath() + matricNo + ".out", true)) {
+                    writer.write(output + "\n");
                 }
             }
 
@@ -41,14 +41,14 @@ public class ReadStreamCallable implements Callable<String> {
                 errorMessage.append(stdError.readLine()).append("\n");
             }
 
-            if(!errorMessage.toString().equals("")){
+            if (!errorMessage.toString().equals("")) {
                 //Save error to log
                 OutputLogFile.save(matricNo, repoName, errorMessage.toString());
                 return "error";
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace ();
+            ex.printStackTrace();
         }
 
         return "complete";

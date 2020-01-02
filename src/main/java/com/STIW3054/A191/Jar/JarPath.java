@@ -8,7 +8,7 @@ class JarPath {
 
         String path = null;
 
-        File dir = new File(PomPath.replaceAll("pom.xml","target"));
+        File dir = new File(PomPath.replaceAll("pom.xml", "target"));
 
         String[] children = dir.list();
         if (children != null) {
