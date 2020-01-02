@@ -32,6 +32,6 @@ public class CloneRepoRunnable implements Runnable {
             e.printStackTrace();
         }
 
-        OutputResult.print(false,UrlDetails.getRepoName(repoUrl),"Cloning Completed !", latch, totalRepo);
+        OutputResult.print(false, UrlDetails.getRepoName(repoUrl), "Cloning Completed !", latch, totalRepo);
     }
 }
