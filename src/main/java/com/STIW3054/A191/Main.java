@@ -15,7 +15,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 public class Main {
 
     public static void main(String[] args) {
@@ -87,12 +86,11 @@ public class Main {
         }
         System.out.println("Maven Build Completed !");
 
-
         System.out.println("\nRun Jar...");
         CountDownLatch latchRunJar = new CountDownLatch(buildSuccessRepo.size());
         ExecutorService execRunJar = Executors.newFixedThreadPool(Threads.availableLightThreads());
-        for(String[] repoDetails : buildSuccessRepo){
-            Thread threadRunJar = new Thread(new RunJarRunnable(repoDetails[0], repoDetails[1], repoDetails[2],latchRunJar,buildSuccessRepo.size()));
+        for (String[] repoDetails : buildSuccessRepo) {
+            Thread threadRunJar = new Thread(new RunJarRunnable(repoDetails[0], repoDetails[1], repoDetails[2], latchRunJar, buildSuccessRepo.size()));
             execRunJar.execute(threadRunJar);
         }
         execRunJar.shutdown();
@@ -104,12 +102,11 @@ public class Main {
         }
         System.out.println("Run Jar Completed !");
 
-
         System.out.println("\nTest CKJM...");
         ArrayList<String> unknownMatricNo = new ArrayList<>();
         CountDownLatch latchTestCkjm = new CountDownLatch(buildSuccessRepo.size());
         ExecutorService execTestCkjm = Executors.newFixedThreadPool(Threads.availableLightThreads());
-        for(String[] repoDetails : buildSuccessRepo){
+        for (String[] repoDetails : buildSuccessRepo) {
             Thread threadTestCkjm = new Thread(new TestCkjmRunnable(repoDetails[1], repoDetails[2], latchTestCkjm, buildSuccessRepo.size(), unknownMatricNo));
             execTestCkjm.execute(threadTestCkjm);
         }
@@ -122,9 +119,9 @@ public class Main {
         }
         System.out.println("Test CKJM Completed !");
 
-        if(unknownMatricNo.size()>0){
-            for(String matric : unknownMatricNo){
-                System.err.println("Matric No "+matric+" not found in list of students!");
+        if (unknownMatricNo.size() > 0) {
+            for (String matric : unknownMatricNo) {
+                System.err.println("Matric No " + matric + " not found in list of students!");
             }
         }
 
