@@ -2,9 +2,9 @@ package com.STIW3054.A191.MavenFunction;
 
 import java.io.File;
 
-class PomPath {
+public class PomPath {
 
-    static String getPath(File dir) {
+    public static String getPath(File dir) {
         String path = null;
         if (dir.isDirectory()) {
             String[] children = dir.list();

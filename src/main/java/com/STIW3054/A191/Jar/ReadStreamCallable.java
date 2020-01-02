@@ -22,7 +22,7 @@ public class ReadStreamCallable implements Callable<String> {
     }
 
     @Override
-    public String call() throws InterruptedException  {
+    public String call() {
 
         try {
             // Read the output

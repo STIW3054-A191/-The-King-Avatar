@@ -5,13 +5,13 @@ import com.STIW3054.A191.OutputFolder.OutputFolderPath;
 import java.io.File;
 import java.util.ArrayList;
 
-class ClassPath {
+public class ClassPath {
 
     static ArrayList<String> getPath(String RepoName) {
         return findClass(new File(OutputFolderPath.getRepoFolderPath() + RepoName));
     }
 
-    private static ArrayList<String> findClass(File dir) {
+    public static ArrayList<String> findClass(File dir) {
 
         ArrayList<String> path = new ArrayList<>();
 
