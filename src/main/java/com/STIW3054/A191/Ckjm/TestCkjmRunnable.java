@@ -4,87 +4,99 @@ import com.STIW3054.A191.Output.OutputLogFile;
 import com.STIW3054.A191.ExcelFunction.SaveCkjmToExcel;
 import com.STIW3054.A191.OutputFolder.OutputFolderPath;
 import com.STIW3054.A191.Output.OutputResult;
+import gr.spinellis.ckjm.CkjmOutputHandler;
+import gr.spinellis.ckjm.ClassMetrics;
+import gr.spinellis.ckjm.MetricsFilter;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class TestCkjmRunnable implements Runnable {
-
-    private String repoName, matricNo;
+    private String repoName,matricNo;
     private CountDownLatch latch;
     private int totalLatch;
     private ArrayList<String> unknownMatricNo;
+    private PrintStream console;
 
-    public TestCkjmRunnable(String RepoName, String MatricNo, CountDownLatch Latch, int TotalLatch, ArrayList<String> UnknownMatricNo) {
+    public TestCkjmRunnable(String RepoName, String MatricNo, CountDownLatch Latch, int TotalLatch, ArrayList<String> UnknownMatricNo,PrintStream Console){
         this.repoName = RepoName;
         this.matricNo = MatricNo;
         this.latch = Latch;
         this.totalLatch = TotalLatch;
         this.unknownMatricNo = UnknownMatricNo;
+        this.console = Console;
     }
 
     @Override
     public void run() {
 
-        ArrayList<String> classPathArr = ClassPath.getPath(repoName);
+        final ArrayList<String> classPathArr = ClassPath.getPath(repoName);
 
-        if (!classPathArr.isEmpty()) {
-
-            try ( FileWriter writer = new FileWriter(OutputFolderPath.getTxtFolderPath() + matricNo + ".txt", true)) {
-
-                int WMC = 0, DIT = 0, NOC = 0, CBO = 0, RFC = 0, LCOM = 0;
-
-                for (String classPath : classPathArr) {
-                    String result = testClass(classPath);
-
-                    writer.write(result + "\n");
-
-                    if (!result.split(" ")[1].equals("null")) {
-                        WMC += Integer.parseInt(result.split(" ")[1]);
-                        DIT += Integer.parseInt(result.split(" ")[2]);
-                        NOC += Integer.parseInt(result.split(" ")[3]);
-                        CBO += Integer.parseInt(result.split(" ")[4]);
-                        RFC += Integer.parseInt(result.split(" ")[5]);
-                        LCOM += Integer.parseInt(result.split(" ")[6]);
-                    }
-                }
-
-                synchronized (TestCkjmRunnable.class) {
-                    SaveCkjmToExcel.addData(matricNo, unknownMatricNo, WMC, DIT, NOC, CBO, RFC, LCOM);
-                }
-                writer.write("Total : " + WMC + " " + DIT + " " + NOC + " " + CBO + " " + RFC + " " + LCOM + "\n");
-
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(classPathArr.isEmpty()){
+            synchronized (TestCkjmRunnable.class) {
+                System.setErr(console);
+                OutputLogFile.save(matricNo, repoName, "No class file !");
+                OutputResult.print(true, repoName, "No class file !", latch, totalLatch);
             }
+        }else{
 
-            OutputResult.print(false, repoName, "Test CKJM Completed !", latch, totalLatch);
+                CkjmOutputHandler outputHandler = new CkjmOutputHandler() {
 
-        } else {
-            OutputLogFile.save(matricNo, repoName, "No class file !");
-            OutputResult.print(true, repoName, "No class file !", latch, totalLatch);
+                    int i = 0, wmc = 0, dit = 0, noc = 0, cbo = 0, rfc = 0, lcom = 0;
+
+                    @Override
+                    public void handleClass(String name, ClassMetrics c) {
+
+                        wmc += c.getWmc();
+                        dit += c.getDit();
+                        noc += c.getNoc();
+                        cbo += c.getCbo();
+                        rfc += c.getRfc();
+                        lcom += c.getLcom();
+
+                        i++;
+
+                        try (FileWriter writer = new FileWriter(OutputFolderPath.getTxtFolderPath() + matricNo + ".txt", true)) {
+
+                            writer.write(name +
+                                    "\n WMC : " + c.getWmc() +
+                                    ",  DIT : " + c.getDit() +
+                                    ", NOC : " + c.getNoc() +
+                                    ", CBO : " + c.getCbo() +
+                                    ", RFC : " + c.getRfc() +
+                                    ", LCOM : " + c.getLcom() + "\n");
+
+                            if (i == classPathArr.size()) {
+                                writer.write("Total :\n WMC : " + wmc + ", DIT : " + dit + ", NOC : " + noc + ", CBO : " + cbo + ", RFC : " + rfc + ", LCOM : " + lcom + "\n\n");
+
+                                synchronized (TestCkjmRunnable.class) {
+                                    SaveCkjmToExcel.addData(matricNo, unknownMatricNo, wmc, dit, noc, cbo, rfc, lcom);
+                                }
+
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+            synchronized (TestCkjmRunnable.class) {
+                // Create a stream to hold the output
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                PrintStream ps = new PrintStream(baos);
+                System.setErr(ps);
+
+                String[] stringArray = classPathArr.toArray(new String[0]);
+                MetricsFilter.runMetrics(stringArray, outputHandler);
+
+                System.setErr(console);
+                if(!baos.toString().equals("")) {
+                    // Show what happened
+                    OutputLogFile.save(matricNo, repoName, baos.toString());
+                }
+            }
+            OutputResult.print(false,repoName,"Test CKJM Completed !", latch, totalLatch);
         }
-    }
-
-    private static String testClass(String ClassPath) {
-
-        String result = null;
-
-        Runtime rt = Runtime.getRuntime();
-
-        try {
-            Process proc = rt.exec("java -jar " + CkjmPath.getPath() + " " + ClassPath);
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            result = stdInput.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (result == null) {
-            result = new File(ClassPath).getName().replaceAll(".class", "") + " null";
-        }
-
-        return result;
     }
 }

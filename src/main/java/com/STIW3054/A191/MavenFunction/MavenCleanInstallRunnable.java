@@ -43,7 +43,7 @@ public class MavenCleanInstallRunnable implements Runnable {
                 Invoker invoker = new DefaultInvoker();
                 invoker.setLogger(new PrintStreamLogger(System.out, InvokerLogger.ERROR));
 
-                StringBuilder output = new StringBuilder();
+                final StringBuilder output = new StringBuilder();
                 output.append("\n");
 
                 invoker.setOutputHandler(s -> output.append(s).append("\n"));
