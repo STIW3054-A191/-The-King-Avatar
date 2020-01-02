@@ -10,11 +10,11 @@ import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
 import com.STIW3054.A191.OutputFolder.CheckOutputFolder;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 
 public class Main {
 
@@ -106,11 +106,12 @@ public class Main {
 
 
         System.out.println("\nTest CKJM...");
+        PrintStream console = System.err;
         ArrayList<String> unknownMatricNo = new ArrayList<>();
         CountDownLatch latchTestCkjm = new CountDownLatch(buildSuccessRepo.size());
         ExecutorService execTestCkjm = Executors.newFixedThreadPool(Threads.availableLightThreads());
         for(String[] repoDetails : buildSuccessRepo){
-            Thread threadTestCkjm = new Thread(new TestCkjmRunnable(repoDetails[1], repoDetails[2], latchTestCkjm, buildSuccessRepo.size(), unknownMatricNo));
+            Thread threadTestCkjm = new Thread(new TestCkjmRunnable(repoDetails[1], repoDetails[2], latchTestCkjm, buildSuccessRepo.size(), unknownMatricNo, console));
             execTestCkjm.execute(threadTestCkjm);
         }
         execTestCkjm.shutdown();
@@ -124,7 +125,7 @@ public class Main {
 
         if(unknownMatricNo.size()>0){
             for(String matric : unknownMatricNo){
-                System.err.println("Matric No "+matric+" not found in list of students!");
+                System.err.println("\nMatric No "+matric+" not found in list of students!");
             }
         }
 
