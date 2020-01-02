@@ -43,7 +43,7 @@ StackOverflow(2012) Create directory. If exists, delete directory and its conten
 Vogella(2019) JGit - Tutorial. Retrieved from    
 &nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html  
 
-How to use Ckjm metric  
+How to use Ckjm metric. Retrieved from  
 &nbsp;&nbsp;&nbsp;&nbsp; https://www.spinellis.gr/sw/ckjm/doc/indexw.html
 
 https://blog.csdn.net/zzq900503/article/details/52727199
