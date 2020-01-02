@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class TestCkjmRunnable implements Runnable {
-    private String repoName,matricNo;
+
+    private String repoName, matricNo;
     private CountDownLatch latch;
     private int totalLatch;
     private ArrayList<String> unknownMatricNo;
 
-    public TestCkjmRunnable(String RepoName, String MatricNo, CountDownLatch Latch, int TotalLatch, ArrayList<String> UnknownMatricNo){
+    public TestCkjmRunnable(String RepoName, String MatricNo, CountDownLatch Latch, int TotalLatch, ArrayList<String> UnknownMatricNo) {
         this.repoName = RepoName;
         this.matricNo = MatricNo;
         this.latch = Latch;
@@ -28,18 +29,18 @@ public class TestCkjmRunnable implements Runnable {
 
         ArrayList<String> classPathArr = ClassPath.getPath(repoName);
 
-        if(!classPathArr.isEmpty()){
+        if (!classPathArr.isEmpty()) {
 
-            try (FileWriter writer = new FileWriter(OutputFolderPath.getTxtFolderPath() + matricNo + ".txt", true)) {
+            try ( FileWriter writer = new FileWriter(OutputFolderPath.getTxtFolderPath() + matricNo + ".txt", true)) {
 
                 int WMC = 0, DIT = 0, NOC = 0, CBO = 0, RFC = 0, LCOM = 0;
 
-                for (String classPath : classPathArr ) {
+                for (String classPath : classPathArr) {
                     String result = testClass(classPath);
 
-                    writer.write(result+"\n");
+                    writer.write(result + "\n");
 
-                    if(!result.split(" ")[1].equals("null")) {
+                    if (!result.split(" ")[1].equals("null")) {
                         WMC += Integer.parseInt(result.split(" ")[1]);
                         DIT += Integer.parseInt(result.split(" ")[2]);
                         NOC += Integer.parseInt(result.split(" ")[3]);
@@ -52,36 +53,36 @@ public class TestCkjmRunnable implements Runnable {
                 synchronized (TestCkjmRunnable.class) {
                     SaveCkjmToExcel.addData(matricNo, unknownMatricNo, WMC, DIT, NOC, CBO, RFC, LCOM);
                 }
-                writer.write("Total : "+WMC+" "+DIT+" "+NOC+" "+CBO+" "+RFC+" "+LCOM+"\n");
+                writer.write("Total : " + WMC + " " + DIT + " " + NOC + " " + CBO + " " + RFC + " " + LCOM + "\n");
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            OutputResult.print(false,repoName,"Test CKJM Completed !", latch, totalLatch);
+            OutputResult.print(false, repoName, "Test CKJM Completed !", latch, totalLatch);
 
-        }else {
+        } else {
             OutputLogFile.save(matricNo, repoName, "No class file !");
-            OutputResult.print(true,repoName,"No class file !", latch, totalLatch);
+            OutputResult.print(true, repoName, "No class file !", latch, totalLatch);
         }
     }
 
-    private static String testClass(String ClassPath){
+    private static String testClass(String ClassPath) {
 
         String result = null;
 
         Runtime rt = Runtime.getRuntime();
 
         try {
-            Process proc = rt.exec("java -jar "+ CkjmPath.getPath() +" "+ClassPath);
+            Process proc = rt.exec("java -jar " + CkjmPath.getPath() + " " + ClassPath);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             result = stdInput.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if(result == null) {
-            result = new File(ClassPath).getName().replaceAll(".class","")+" null";
+        if (result == null) {
+            result = new File(ClassPath).getName().replaceAll(".class", "") + " null";
         }
 
         return result;
