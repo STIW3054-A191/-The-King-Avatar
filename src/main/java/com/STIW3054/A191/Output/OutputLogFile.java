@@ -8,7 +8,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class OutputLogFile {
-    public static void save(String MatricNo, String RepoName, String Message){
+
+    public static void save(String MatricNo, String RepoName, String Message) {
 
         String logFilePath = OutputFolderPath.getLogFolderPath() + MatricNo + ".log";
         try {
