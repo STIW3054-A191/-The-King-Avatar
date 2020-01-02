@@ -21,7 +21,7 @@ public class RepoLink {
                 String elementLink = array.attr("href");
                 String link;
                 // Test .git link
-                if(!elementLink.startsWith("http://cwiki")) {
+                if (!elementLink.startsWith("http://cwiki")) {
 
                     if (elementLink.endsWith(".git")) {
                         link = elementLink.substring(0, elementLink.length() - 4);

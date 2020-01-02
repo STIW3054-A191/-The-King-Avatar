@@ -16,7 +16,7 @@ class OutputExcel implements ExcelFunctionData {
 
         while (true) {
             // An output stream accepts output bytes and sends them to sink.
-            try (OutputStream fileOut = new FileOutputStream(fileName)) {
+            try ( OutputStream fileOut = new FileOutputStream(fileName)) {
                 workbook.write(fileOut);
                 // Close fileOut and workbook
                 fileOut.close();

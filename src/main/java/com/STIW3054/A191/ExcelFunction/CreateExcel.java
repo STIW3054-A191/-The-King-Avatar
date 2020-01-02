@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class CreateExcel implements ExcelFunctionData {
 
-    public static void create(){
+    public static void create() {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -17,7 +17,7 @@ public class CreateExcel implements ExcelFunctionData {
 
         Row row = sheet.createRow(0);
 
-        for(int i=0; i < title.length; i++){
+        for (int i = 0; i < title.length; i++) {
             row.createCell(i).setCellValue(title[i]);
         }
 
@@ -26,12 +26,12 @@ public class CreateExcel implements ExcelFunctionData {
         font.setBold(true);//Make font bold
         style.setFont(font);//set it to bold
 
-        for(int i = 0; i < title.length; i++){//For each cell in the row
+        for (int i = 0; i < title.length; i++) {//For each cell in the row
             row.getCell(i).setCellStyle(style);//Set the style
         }
 
         //Save the Excel file
-        OutputExcel.output(workbook,sheet);
+        OutputExcel.output(workbook, sheet);
 
     }
 }

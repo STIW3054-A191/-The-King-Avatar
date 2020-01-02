@@ -5,7 +5,7 @@ import com.STIW3054.A191.OutputFolder.OutputFolderPath;
 public interface ExcelFunctionData {
 
     // Excel File Name
-    String fileName = OutputFolderPath.getOutputFolderPath()+"CKJM.xlsx";
+    String fileName = OutputFolderPath.getOutputFolderPath() + "CKJM.xlsx";
 
     // Excel SheetName
     String sheetName = "ListOfStudents";
