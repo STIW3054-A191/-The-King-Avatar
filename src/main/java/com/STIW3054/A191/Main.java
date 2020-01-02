@@ -1,29 +1,91 @@
 package com.STIW3054.A191;
 
+import com.STIW3054.A191.Ckjm.ClassPath;
+import com.STIW3054.A191.Ckjm.TestCkjm;
 import com.STIW3054.A191.Ckjm.TestCkjmRunnable;
 import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
 import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.ExcelFunction.CreateExcel;
 import com.STIW3054.A191.ExcelFunction.GetListOfStudents;
 import com.STIW3054.A191.ExcelFunction.StackedBarChart;
+import com.STIW3054.A191.Jar.JarPath;
+import com.STIW3054.A191.Jar.ReadStreamRunnable;
 import com.STIW3054.A191.Jar.RunJarRunnable;
+import com.STIW3054.A191.MavenFunction.MavenCleanInstall;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
+import com.STIW3054.A191.MavenFunction.PomPath;
 import com.STIW3054.A191.OutputFolder.CheckOutputFolder;
 
-import java.io.IOException;
-import java.io.PrintStream;
+
+import java.io.*;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
 
         //Get start time
         TimeElapsed.start();
+
+        if(args.length!=0){
+            for(String s :args){
+
+                if(s.endsWith(".class")){
+                    TestCkjm.test(s);
+                }else {
+                    File dir = new File(s);
+                    if(dir.isDirectory()){
+                        String pomPath = PomPath.getPath(dir);
+                        if (pomPath != null) {
+
+                            if(MavenCleanInstall.cleanInstall(pomPath) == 0) {
+                                System.out.println("Maven Build Completed !");
+
+                                System.out.println("\nTest CKJM...");
+                                ArrayList<String> arrClass = ClassPath.findClass(dir);
+                                if(!arrClass.isEmpty()) {
+                                    for (String c : arrClass) {
+                                        TestCkjm.test(c);
+                                    }
+                                }else {
+                                    System.err.println("No class file !");
+                                }
+
+                                System.out.println("\nRun Jar...");
+
+                                try {
+                                    Runtime rt = Runtime.getRuntime();
+                                    Process proc = rt.exec("java -jar " + JarPath.getPath(pomPath), null, dir);
+
+                                    Thread readStream = new Thread(new ReadStreamRunnable(proc.getInputStream(),proc.getErrorStream()));
+                                    readStream.start();
+
+                                    if(proc.waitFor(1, TimeUnit.MINUTES)){
+                                        proc.destroy();
+                                    }
+
+                                } catch (IOException | InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            } else {
+                                System.err.println("Build Failure !");
+                            }
+
+                        } else {
+                            System.err.println(" No pom.xml file !");
+                        }
+                    }else {
+                        System.err.println("Please enter the correct folder/class path !");
+                    }
+                }
+            }
+
+            TimeElapsed.endAndOutput();
+            System.exit(0);
+        }
 
         // Set maven home for invoker used
         System.out.println("Checking Maven Home...");

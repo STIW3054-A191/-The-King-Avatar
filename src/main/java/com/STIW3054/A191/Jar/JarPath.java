@@ -2,9 +2,9 @@ package com.STIW3054.A191.Jar;
 
 import java.io.File;
 
-class JarPath {
+public class JarPath {
 
-    static String getPath(String PomPath) {
+    public static String getPath(String PomPath) {
 
         String path = null;
 
