@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 
+public class MavenCleanInstallRunnable implements Runnable {
 
-public class MavenCleanInstallRunnable implements Runnable{
     private String repoUrl;
     private int totalRepo;
     private CountDownLatch latch;
@@ -28,11 +28,11 @@ public class MavenCleanInstallRunnable implements Runnable{
     @Override
     public void run() {
 
-        String repoPath = OutputFolderPath.getRepoFolderPath()+UrlDetails.getRepoName(repoUrl);
+        String repoPath = OutputFolderPath.getRepoFolderPath() + UrlDetails.getRepoName(repoUrl);
         String repoName = UrlDetails.getRepoName(repoUrl);
 
         String pomPath = PomPath.getPath(new File(repoPath));
-        if(pomPath!=null) {
+        if (pomPath != null) {
 
             InvocationRequest request = new DefaultInvocationRequest();
             request.setPomFile(new File(pomPath));
@@ -53,22 +53,22 @@ public class MavenCleanInstallRunnable implements Runnable{
                 final InvocationResult invocationResult = invoker.execute(request);
 
                 if (invocationResult.getExitCode() == 0) {
-                    buildSuccessRepo.add(new String[]{pomPath,repoName,UrlDetails.getMatric(repoUrl)});
-                    OutputResult.print(false,repoName,"Build Success !", latch, totalRepo);
+                    buildSuccessRepo.add(new String[]{pomPath, repoName, UrlDetails.getMatric(repoUrl)});
+                    OutputResult.print(false, repoName, "Build Success !", latch, totalRepo);
                 } else {
                     //Save error to log
-                    OutputLogFile.save(UrlDetails.getMatric(repoUrl),repoName,output.toString());
-                    OutputResult.print(true,repoName,"Build Failure !", latch, totalRepo);
+                    OutputLogFile.save(UrlDetails.getMatric(repoUrl), repoName, output.toString());
+                    OutputResult.print(true, repoName, "Build Failure !", latch, totalRepo);
                 }
 
             } catch (MavenInvocationException e) {
                 e.printStackTrace();
             }
 
-        }else {
+        } else {
             //Save error to log
-            OutputLogFile.save(UrlDetails.getMatric(repoUrl),repoName,repoName + " No pom.xml file !");
-            OutputResult.print(true,repoName,"No pom.xml file !", latch, totalRepo);
+            OutputLogFile.save(UrlDetails.getMatric(repoUrl), repoName, repoName + " No pom.xml file !");
+            OutputResult.print(true, repoName, "No pom.xml file !", latch, totalRepo);
         }
     }
 }

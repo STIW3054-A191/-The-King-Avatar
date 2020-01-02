@@ -6,8 +6,9 @@ import com.STIW3054.A191.OutputFolder.OutputFolderPath;
 import java.io.*;
 import java.util.concurrent.*;
 
-public class RunJarRunnable implements Runnable{
-    private String pomPath,repoName,matricNo;
+public class RunJarRunnable implements Runnable {
+
+    private String pomPath, repoName, matricNo;
     private CountDownLatch latch;
     private int totalLatch;
 
@@ -24,9 +25,9 @@ public class RunJarRunnable implements Runnable{
 
         try {
             Runtime rt = Runtime.getRuntime();
-            Process proc = rt.exec("java -jar "+ JarPath.getPath(pomPath), null, new File(OutputFolderPath.getRepoFolderPath()+repoName));
+            Process proc = rt.exec("java -jar " + JarPath.getPath(pomPath), null, new File(OutputFolderPath.getRepoFolderPath() + repoName));
 
-            FutureTask<String> futureTask = new FutureTask<>(new ReadStreamCallable(matricNo, repoName, proc.getInputStream (), proc.getErrorStream()));
+            FutureTask<String> futureTask = new FutureTask<>(new ReadStreamCallable(matricNo, repoName, proc.getInputStream(), proc.getErrorStream()));
             new Thread(futureTask).start();
 
             try {
@@ -45,6 +46,5 @@ public class RunJarRunnable implements Runnable{
             e.printStackTrace();
         }
     }
-
 
 }

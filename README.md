@@ -41,10 +41,16 @@ StackOverflow(2012) Create directory. If exists, delete directory and its conten
 &nbsp;&nbsp;&nbsp;&nbsp; https://stackoverflow.com/questions/12835285/create-directory-if-exists-delete-directory-and-its-content-and-create-new-one/20157588
 
 Vogella(2019) JGit - Tutorial. Retrieved from    
-&nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html
+&nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html  
 
-https://blog.csdn.net/zzq900503/article/details/52727199
-https://blog.csdn.net/xuemengrui12/article/details/78543543
-https://blog.csdn.net/qq_36688143/article/details/85121532
-https://www.cnblogs.com/starcrm/p/5010863.html
-https://stackoverflow.com/questions/38913412/create-bar-chart-in-excel-with-apache-poi
+How to use Ckjm metric. Retrieved from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://www.spinellis.gr/sw/ckjm/doc/indexw.html
+
+Java multithreading. Retrived from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://blog.csdn.net/zzq900503/article/details/52727199 
+
+Java executors framework tutorial. Retrived from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://blog.csdn.net/xuemengrui12/article/details/78543543
+
+Java maven configuration. Retrived from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://blog.csdn.net/qq_36688143/article/details/85121532

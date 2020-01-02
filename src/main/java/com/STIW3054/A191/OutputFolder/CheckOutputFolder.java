@@ -4,10 +4,10 @@ import java.io.File;
 
 public class CheckOutputFolder {
 
-    public static void check(){
+    public static void check() {
 
         File repoFolder = new File(OutputFolderPath.getRepoFolderPath());
-        if(repoFolder.exists()){
+        if (repoFolder.exists()) {
             deleteDir(repoFolder);
         }
 
@@ -18,8 +18,8 @@ public class CheckOutputFolder {
 
     }
 
-    private static void makeDir(File Directory){
-        if (!Directory.exists()){
+    private static void makeDir(File Directory) {
+        if (!Directory.exists()) {
             Directory.mkdirs();
         }
     }
@@ -40,6 +40,5 @@ public class CheckOutputFolder {
         // Delete directory and return result
         return dir.delete();
     }
-
 
 }

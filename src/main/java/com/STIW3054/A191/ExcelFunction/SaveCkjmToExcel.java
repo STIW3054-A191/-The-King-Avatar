@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class SaveCkjmToExcel implements ExcelFunctionData {
 
-    public static void addData(String MatricNo, ArrayList<String> UnknownMatricNo, int WMC, int DIT, int NOC, int CBO, int RFC, int LCOM){
+    public static void addData(String MatricNo, ArrayList<String> UnknownMatricNo, int WMC, int DIT, int NOC, int CBO, int RFC, int LCOM) {
 
         try {
             FileInputStream file = new FileInputStream(fileName);
@@ -22,9 +22,9 @@ public class SaveCkjmToExcel implements ExcelFunctionData {
 
             boolean foundInList = false;
 
-            for (int i=1; i <= sheet.getLastRowNum(); i++ ) {
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 
-                if(sheet.getRow(i).getCell(1).toString().equals(MatricNo)){
+                if (sheet.getRow(i).getCell(1).toString().equals(MatricNo)) {
 
                     foundInList = true;
 
@@ -40,12 +40,12 @@ public class SaveCkjmToExcel implements ExcelFunctionData {
                 }
             }
 
-            if(!foundInList){
+            if (!foundInList) {
                 UnknownMatricNo.add(MatricNo);
             }
 
             //Save the Excel file
-            OutputExcel.output(workbook,sheet);
+            OutputExcel.output(workbook, sheet);
 
         } catch (Exception e) {
             e.printStackTrace();

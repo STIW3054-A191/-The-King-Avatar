@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 class ClassPath {
 
-    static ArrayList<String> getPath(String RepoName){
-        return findClass(new File(OutputFolderPath.getRepoFolderPath()+RepoName));
+    static ArrayList<String> getPath(String RepoName) {
+        return findClass(new File(OutputFolderPath.getRepoFolderPath() + RepoName));
     }
 
     private static ArrayList<String> findClass(File dir) {
@@ -23,7 +23,7 @@ class ClassPath {
                     if (child.endsWith(".class")) {
                         path.add(aChild.getPath());
                     } else if (aChild.isDirectory()) {
-                         path.addAll(findClass(aChild));
+                        path.addAll(findClass(aChild));
                     }
                 }
             }
@@ -31,4 +31,3 @@ class ClassPath {
         return path;
     }
 }
-
