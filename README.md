@@ -46,6 +46,11 @@ Vogella(2019) JGit - Tutorial. Retrieved from
 How to use Ckjm metric. Retrieved from  
 &nbsp;&nbsp;&nbsp;&nbsp; https://www.spinellis.gr/sw/ckjm/doc/indexw.html
 
-https://blog.csdn.net/zzq900503/article/details/52727199
-https://blog.csdn.net/xuemengrui12/article/details/78543543
-https://blog.csdn.net/qq_36688143/article/details/85121532
+Java multithreading. Retrived from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://blog.csdn.net/zzq900503/article/details/52727199 
+
+Java executors framework tutorial. Retrived from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://blog.csdn.net/xuemengrui12/article/details/78543543
+
+Java maven configuration. Retrived from  
+&nbsp;&nbsp;&nbsp;&nbsp; https://blog.csdn.net/qq_36688143/article/details/85121532
