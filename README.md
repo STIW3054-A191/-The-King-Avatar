@@ -41,7 +41,10 @@ StackOverflow(2012) Create directory. If exists, delete directory and its conten
 &nbsp;&nbsp;&nbsp;&nbsp; https://stackoverflow.com/questions/12835285/create-directory-if-exists-delete-directory-and-its-content-and-create-new-one/20157588
 
 Vogella(2019) JGit - Tutorial. Retrieved from    
-&nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html
+&nbsp;&nbsp;&nbsp;&nbsp; https://www.vogella.com/tutorials/JGit/article.html  
+
+How to use Ckjm metric  
+https://www.spinellis.gr/sw/ckjm/doc/indexw.html
 
 https://blog.csdn.net/zzq900503/article/details/52727199
 https://blog.csdn.net/xuemengrui12/article/details/78543543
