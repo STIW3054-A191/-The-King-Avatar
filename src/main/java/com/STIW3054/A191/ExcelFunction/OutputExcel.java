@@ -14,18 +14,17 @@ class OutputExcel implements ExcelFunctionData {
             sheet.autoSizeColumn(i);
         }
 
-        while (true) {
-            // An output stream accepts output bytes and sends them to sink.
-            try (OutputStream fileOut = new FileOutputStream(fileName)) {
-                workbook.write(fileOut);
-                // Close fileOut and workbook
-                fileOut.close();
-                workbook.close();
-                break;
+        // An output stream accepts output bytes and sends them to sink.
+        try (OutputStream fileOut = new FileOutputStream(fileName)) {
+            workbook.write(fileOut);
+            // Close fileOut and workbook
+            fileOut.close();
+            workbook.close();
 
-            } catch (Exception e) {
-                System.out.println("Failed to create/save the Excel file !");
-            }
+        } catch (Exception e) {
+            System.err.println("Failed to create/save the Excel file !");
+            System.exit(-1);
         }
+
     }
 }

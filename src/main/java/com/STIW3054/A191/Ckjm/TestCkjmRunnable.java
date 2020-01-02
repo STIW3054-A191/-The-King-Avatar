@@ -34,9 +34,11 @@ public class TestCkjmRunnable implements Runnable {
         final ArrayList<String> classPathArr = ClassPath.getPath(repoName);
 
         if(classPathArr.isEmpty()){
-            System.setErr(console);
-            OutputLogFile.save(matricNo, repoName, "No class file !");
-            OutputResult.print(true,repoName,"No class file !", latch, totalLatch);
+            synchronized (TestCkjmRunnable.class) {
+                System.setErr(console);
+                OutputLogFile.save(matricNo, repoName, "No class file !");
+                OutputResult.print(true, repoName, "No class file !", latch, totalLatch);
+            }
         }else{
 
                 CkjmOutputHandler outputHandler = new CkjmOutputHandler() {

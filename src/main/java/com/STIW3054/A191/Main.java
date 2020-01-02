@@ -2,14 +2,16 @@ package com.STIW3054.A191;
 
 import com.STIW3054.A191.Ckjm.TestCkjmRunnable;
 import com.STIW3054.A191.CloneRepo.CloneRepoRunnable;
+import com.STIW3054.A191.CloneRepo.RepoLink;
 import com.STIW3054.A191.ExcelFunction.CreateExcel;
 import com.STIW3054.A191.ExcelFunction.GetListOfStudents;
-import com.STIW3054.A191.CloneRepo.RepoLink;
+import com.STIW3054.A191.ExcelFunction.StackedBarChart;
 import com.STIW3054.A191.Jar.RunJarRunnable;
 import com.STIW3054.A191.MavenFunction.MavenCleanInstallRunnable;
 import com.STIW3054.A191.MavenFunction.MavenHome;
 import com.STIW3054.A191.OutputFolder.CheckOutputFolder;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -18,7 +20,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         //Get start time
         TimeElapsed.start();
@@ -59,15 +61,10 @@ public class Main {
             execCloneRepo.execute(threadCloneRepo);
         }
         execCloneRepo.shutdown();
-
         // Wait after all threads completed.
-        try {
-            latchCloneRepo.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        latchCloneRepo.await();
         System.out.println("Cloning Completed !");
+
 
         System.out.println("\nMaven Build Repositories...");
         ArrayList<String[]> buildSuccessRepo = new ArrayList<>();
@@ -78,13 +75,8 @@ public class Main {
             execMavenCleanInstall.execute(threadMavenCleanInstall);
         }
         execMavenCleanInstall.shutdown();
-
         // Wait after all threads completed.
-        try {
-            latchMavenCleanInstall.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        latchMavenCleanInstall.await();
         System.out.println("Maven Build Completed !");
 
 
@@ -96,12 +88,7 @@ public class Main {
             execRunJar.execute(threadRunJar);
         }
         execRunJar.shutdown();
-
-        try {
-            latchRunJar.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        latchRunJar.await();
         System.out.println("Run Jar Completed !");
 
 
@@ -115,12 +102,7 @@ public class Main {
             execTestCkjm.execute(threadTestCkjm);
         }
         execTestCkjm.shutdown();
-
-        try {
-            latchTestCkjm.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        latchTestCkjm.await();
         System.out.println("Test CKJM Completed !");
 
         if(unknownMatricNo.size()>0){
@@ -128,6 +110,9 @@ public class Main {
                 System.err.println("\nMatric No "+matric+" not found in list of students!");
             }
         }
+
+        System.out.println("\nCreate Bar Chart...");
+        StackedBarChart.create();
 
         //Get end time and time elapsed
         TimeElapsed.endAndOutput();
