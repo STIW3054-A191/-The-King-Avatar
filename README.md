@@ -23,7 +23,24 @@ This is a real-time system which are developed by using Java programming languag
 
 ## Result/Output  
 
+#### Run Program
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/1.PNG "1")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/2.PNG "2")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/3.PNG "3")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/4.PNG "4")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/5.PNG "5")
+
+
+
+#### Excel File
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Excel.PNG "Excel")
+
+#### Bar Chart
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/BarChart.PNG "Bar Chart")
+
+
 ## UML Class Diagram  
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/ClassDiagram/ClassDiagram.jpg "Class Diagram")
 
 ## YouTube Presentation 
 
