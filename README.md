@@ -75,6 +75,8 @@ This is a real-time system which are developed by using Java programming languag
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/ClassDiagram/ClassDiagram.jpg "Class Diagram")
 
 ## YouTube Presentation 
+[![YouTube Link](https://img.youtube.com/vi/nBSl7BEBgqk/0.jpg)](https://youtu.be/nBSl7BEBgqk "Video Presentation Link")  
+[Video Presentation Link](https://youtu.be/nBSl7BEBgqk)
 
 ## References  
 Adam Pritchard(2017) Markdown Cheatsheet. Retrieved from   
