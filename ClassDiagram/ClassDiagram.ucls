@@ -22,7 +22,7 @@
   </class>  
   <class id="3" language="java" name="com.STIW3054.A191.Ckjm.TestCkjm" project="TheKingAvatar" 
     file="/TheKingAvatar/src/main/java/com/STIW3054/A191/Ckjm/TestCkjm.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="106" width="157" x="41" y="183"/>    
+    <position height="-1" width="-1" x="1348" y="11"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -51,7 +51,7 @@
   </class>  
   <class id="6" language="java" name="com.STIW3054.A191.CloneRepo.RepoLink" project="TheKingAvatar" 
     file="/TheKingAvatar/src/main/java/com/STIW3054/A191/CloneRepo/RepoLink.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="106" width="191" x="238" y="183"/>    
+    <position height="-1" width="-1" x="1557" y="-60"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -79,7 +79,7 @@
   </class>  
   <class id="9" language="java" name="com.STIW3054.A191.Threads" project="TheKingAvatar" 
     file="/TheKingAvatar/src/main/java/com/STIW3054/A191/Threads.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="142" width="182" x="469" y="183"/>    
+    <position height="-1" width="-1" x="1049" y="91"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -127,7 +127,7 @@
   </class>  
   <class id="14" language="java" name="com.STIW3054.A191.Main" project="TheKingAvatar" 
     file="/TheKingAvatar/src/main/java/com/STIW3054/A191/Main.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="106" width="130" x="3035" y="37"/>    
+    <position height="-1" width="-1" x="2915" y="-69"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
