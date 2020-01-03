@@ -72,8 +72,8 @@ This is a real-time system which are developed by using Java programming languag
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/BarChart.PNG "Bar Chart")
 
 ## JavaDoc
-[![JavaDoc](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/JavaDoc.PNG)](https://STIW3054-A191.github.io/TheKingAvatar/JavaDoc/ "JavaDoc") 
-[JavaDoc Folder](https://STIW3054-A191.github.io/TheKingAvatar/JavaDoc/)
+[![JavaDoc](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/JavaDoc.PNG)](https://stiw3054-a191.github.io/TheKingAvatar/JavaDoc/index.html "JavaDoc") 
+[JavaDoc Link](https://stiw3054-a191.github.io/TheKingAvatar/JavaDoc/index.html)
 
 ## UML Class Diagram  
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/ClassDiagram/ClassDiagram.jpg "Class Diagram")
