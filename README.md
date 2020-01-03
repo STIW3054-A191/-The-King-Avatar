@@ -2,6 +2,7 @@
 1. [Group Info](#group-info)
 1. [Introduction](#introduction)
 1. [Result/Output](#resultoutput)
+1. [JavaDoc](#JavaDoc)
 1. [UML Class Diagram](#uml-class-diagram)
 1. [YouTube Presentation](#youtube-presentation)
 1. [References](#references)
@@ -70,6 +71,9 @@ This is a real-time system which are developed by using Java programming languag
 ### Bar Chart
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/BarChart.PNG "Bar Chart")
 
+## JavaDoc
+[![JavaDoc](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/JavaDoc.PNG)](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/JavaDoc "JavaDoc") 
+[JavaDoc Folder](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/JavaDoc)
 
 ## UML Class Diagram  
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/ClassDiagram/ClassDiagram.jpg "Class Diagram")
