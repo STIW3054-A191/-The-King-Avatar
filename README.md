@@ -23,19 +23,42 @@ This is a real-time system which are developed by using Java programming languag
 
 ## Result/Output  
 
-#### Run Program
-![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/1.PNG "1")
-![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/2.PNG "2")
-![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/3.PNG "3")
-![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/4.PNG "4")
-![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/5.PNG "5")
+### Run Program
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/1.PNG "Run Program 1")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/2.PNG "Run Program 2")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/3.PNG "Run Program 3")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/4.PNG "Run Program 4")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/5.PNG "Run Program 5")
 
+### Output Folder
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Folder.PNG "Folder")
 
+### Repo Folder
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/RepoFolder.PNG "Repo Folder")
 
-#### Excel File
+### Log Folder
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/LogFolder.PNG "Log Folder")
+
+#### Log File
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/log1.PNG "Log File")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/log2.PNG "Log File")
+
+### Out Folder
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/OutFolder.PNG "Out Folder")
+
+#### Out File
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/out.PNG "Out File")
+
+### Txt Folder
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/TxtFolder.PNG "Txt Folder")
+
+#### Txt File
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/out.PNG "Txt File")
+
+### Excel File
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Excel.PNG "Excel")
 
-#### Bar Chart
+### Bar Chart
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/BarChart.PNG "Bar Chart")
 
 
