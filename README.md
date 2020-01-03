@@ -30,6 +30,15 @@ This is a real-time system which are developed by using Java programming languag
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/4.PNG "Run Program 4")
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/5.PNG "Run Program 5")
 
+### Run Program by Jar with arguments
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar1.PNG "Jar 1")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar2.PNG "Jar 2")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar3.PNG "Jar 3")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar4.PNG "Jar 4")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar5.PNG "Jar 5")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar6.PNG "Jar 6")
+![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Jar7.PNG "Jar 7")
+
 ### Output Folder
 ![alt text](https://github.com/STIW3054-A191/TheKingAvatar/blob/master/Output/Folder.PNG "Folder")
 
